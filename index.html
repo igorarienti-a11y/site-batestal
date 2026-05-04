@@ -1339,7 +1339,7 @@
 
 <!-- ════════════ HERO ════════════ -->
 <section class="hero" id="hero">
-  <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/images/fachada-noturna.jpg">
+  <video class="hero__video" id="heroVideo" autoplay muted playsinline preload="metadata" poster="assets/images/fachada-noturna.jpg">
     <source src="assets/video/skyview-video.mp4" type="video/mp4">
   </video>
   <img class="hero__img-mobile" src="assets/images/fachada-noturna.jpg" alt="" aria-hidden="true" fetchpriority="high">
@@ -1947,9 +1947,13 @@
   window.scrollTo(0, 0);
 
   // ─── Mobile: pausa o vídeo da hero para economizar banda ───
+  const heroVideo = document.getElementById('heroVideo');
   if (window.innerWidth <= 600) {
-    const heroVideo = document.querySelector('.hero__video');
     if (heroVideo) { heroVideo.pause(); heroVideo.removeAttribute('src'); heroVideo.load(); }
+  } else if (heroVideo) {
+    heroVideo.addEventListener('ended', () => {
+      heroVideo.pause();
+    });
   }
 
   // ─── Navbar scroll solid ───
