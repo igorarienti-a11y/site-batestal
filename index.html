@@ -67,8 +67,8 @@
     /* ─── Reveal animations ─── */
     .reveal {
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      transform: translateY(22px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
       will-change: transform, opacity;
     }
     .reveal.in { opacity: 1; transform: none; }
@@ -76,6 +76,24 @@
     .d2 { transition-delay: 0.2s; }
     .d3 { transition-delay: 0.3s; }
     .d4 { transition-delay: 0.4s; }
+
+    /* Reveal para imagens — scale + drift suave */
+    .reveal-img {
+      opacity: 0;
+      transform: scale(0.97) translateY(24px);
+      transition: opacity 1.1s var(--ease), transform 1.15s var(--ease);
+      will-change: transform, opacity;
+    }
+    .reveal-img.in { opacity: 1; transform: none; }
+
+    /* Stagger automático para tiles do mosaico */
+    .area-tile:nth-child(2).reveal-img,
+    .area-mini:nth-child(2).reveal-img { transition-delay: 0.1s; }
+    .area-tile:nth-child(3).reveal-img,
+    .area-mini:nth-child(3).reveal-img { transition-delay: 0.2s; }
+    .area-tile:nth-child(4).reveal-img,
+    .area-mini:nth-child(4).reveal-img { transition-delay: 0.3s; }
+    .area-mini:nth-child(5).reveal-img  { transition-delay: 0.4s; }
 
     /* ─── Buttons ─── */
     .btn-gold {
@@ -1208,13 +1226,19 @@
       .hero__img-mobile { display: block; }
 
       /* Animações mais rápidas no mobile */
-      .reveal { transition-duration: 0.45s; }
+      .reveal     { transition-duration: 0.45s; will-change: auto; }
+      .reveal-img { transform: translateY(14px); transition-duration: 0.55s; will-change: auto; }
       .d1 { transition-delay: 0.05s; }
       .d2 { transition-delay: 0.1s; }
       .d3 { transition-delay: 0.15s; }
       .d4 { transition-delay: 0.2s; }
-      /* Desativa will-change em móvel para economizar GPU */
-      .reveal { will-change: auto; }
+      .area-tile:nth-child(2).reveal-img,
+      .area-mini:nth-child(2).reveal-img  { transition-delay: 0.06s; }
+      .area-tile:nth-child(3).reveal-img,
+      .area-mini:nth-child(3).reveal-img  { transition-delay: 0.12s; }
+      .area-tile:nth-child(4).reveal-img,
+      .area-mini:nth-child(4).reveal-img  { transition-delay: 0.18s; }
+      .area-mini:nth-child(5).reveal-img  { transition-delay: 0.24s; }
 
       .form__row { grid-template-columns: 1fr; }
 
@@ -1386,7 +1410,7 @@
         </div>
       </div>
 
-      <div class="sobre__img-wrap reveal d2">
+      <div class="sobre__img-wrap reveal-img d2">
         <img src="assets/images/fachada-noturna.jpg" alt="Skyview — Fachada Noturna" loading="lazy">
         <div class="sobre__badge">
           <strong>65</strong>
@@ -1405,7 +1429,7 @@
         Conheça o <em>Skyview</em>
       </h2>
     </div>
-    <div class="video-player-wrap reveal d2">
+    <div class="video-player-wrap reveal-img d2">
       <video
         controls
         preload="none"
@@ -1434,8 +1458,8 @@
     </div>
 
     <!-- Mosaic principal -->
-    <div class="areas__mosaic reveal d2">
-      <div class="area-tile" data-lb="areas" data-lb-src="assets/images/piscina.jpg" data-lb-caption="Piscina">
+    <div class="areas__mosaic">
+      <div class="area-tile reveal-img" data-lb="areas" data-lb-src="assets/images/piscina.jpg" data-lb-caption="Piscina">
         <img src="assets/images/piscina.jpg" alt="Piscina" loading="lazy">
         <div class="area-tile__grad"></div>
         <div class="area-tile__label">
@@ -1443,7 +1467,7 @@
           <div class="area-tile__detail">Deck panorâmico com vista para a cidade</div>
         </div>
       </div>
-      <div class="area-tile" data-lb="areas" data-lb-src="assets/images/hall.jpg" data-lb-caption="Hall de Entrada">
+      <div class="area-tile reveal-img" data-lb="areas" data-lb-src="assets/images/hall.jpg" data-lb-caption="Hall de Entrada">
         <img src="assets/images/hall.jpg" alt="Hall de Entrada" loading="lazy">
         <div class="area-tile__grad"></div>
         <div class="area-tile__label">
@@ -1451,7 +1475,7 @@
           <div class="area-tile__detail">Entrada imponente com concierge</div>
         </div>
       </div>
-      <div class="area-tile" data-lb="areas" data-lb-src="assets/images/gourmet.jpg" data-lb-caption="Espaço Gourmet">
+      <div class="area-tile reveal-img" data-lb="areas" data-lb-src="assets/images/gourmet.jpg" data-lb-caption="Espaço Gourmet">
         <img src="assets/images/gourmet.jpg" alt="Espaço Gourmet" loading="lazy">
         <div class="area-tile__grad"></div>
         <div class="area-tile__label">
@@ -1459,7 +1483,7 @@
           <div class="area-tile__detail">Churrasqueira com vista panorâmica da cidade</div>
         </div>
       </div>
-      <div class="area-tile" data-lb="areas" data-lb-src="assets/images/academia.jpg" data-lb-caption="Academia">
+      <div class="area-tile reveal-img" data-lb="areas" data-lb-src="assets/images/academia.jpg" data-lb-caption="Academia">
         <img src="assets/images/academia.jpg" alt="Academia" loading="lazy">
         <div class="area-tile__grad"></div>
         <div class="area-tile__label">
@@ -1470,18 +1494,18 @@
     </div>
 
     <!-- Grid complementar -->
-    <div class="areas__list reveal d3">
-      <div class="area-mini" data-lb="areas" data-lb-src="assets/images/festas.jpg" data-lb-caption="Salão de Festas">
+    <div class="areas__list">
+      <div class="area-mini reveal-img" data-lb="areas" data-lb-src="assets/images/festas.jpg" data-lb-caption="Salão de Festas">
         <img src="assets/images/festas.jpg" alt="Salão de Festas" loading="lazy">
         <div class="area-mini__grad"></div>
         <div class="area-mini__name">Salão de Festas</div>
       </div>
-      <div class="area-mini" data-lb="areas" data-lb-src="assets/images/playground.jpg" data-lb-caption="Playground">
+      <div class="area-mini reveal-img" data-lb="areas" data-lb-src="assets/images/playground.jpg" data-lb-caption="Playground">
         <img src="assets/images/playground.jpg" alt="Playground" loading="lazy">
         <div class="area-mini__grad"></div>
         <div class="area-mini__name">Playground</div>
       </div>
-      <div class="area-mini" data-lb="areas" data-lb-src="assets/images/vaga-eletrica.jpg" data-lb-caption="Vaga Elétrica">
+      <div class="area-mini reveal-img" data-lb="areas" data-lb-src="assets/images/vaga-eletrica.jpg" data-lb-caption="Vaga Elétrica">
         <img src="assets/images/vaga-eletrica.jpg" alt="Vaga Elétrica" loading="lazy">
         <div class="area-mini__grad"></div>
         <div class="area-mini__name">Vaga Elétrica</div>
@@ -1504,7 +1528,7 @@
     </div>
   </div>
 
-  <div class="slider__track reveal d3" id="sliderTrack" role="region" aria-label="Galeria de interiores">
+  <div class="slider__track reveal-img d3" id="sliderTrack" role="region" aria-label="Galeria de interiores">
     <div class="slide" data-lb="interiores" data-lb-src="assets/images/living-01.jpg" data-lb-caption="Sala de Estar Integrada">
       <img src="assets/images/living-01.jpg" alt="Sala de estar integrada" loading="lazy">
     </div>
@@ -1559,7 +1583,7 @@
     <!-- Sky 1 -->
     <div class="tab-panel active" id="tab-sky1" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-sky1.png" alt="Sky 1 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1580,7 +1604,7 @@
     <!-- Sky 2 -->
     <div class="tab-panel" id="tab-sky2" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-sky2.png" alt="Sky 2 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1601,7 +1625,7 @@
     <!-- Sky 3 -->
     <div class="tab-panel" id="tab-sky3" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-sky3.png" alt="Sky 3 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1622,7 +1646,7 @@
     <!-- Sky 4 -->
     <div class="tab-panel" id="tab-sky4" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-sky4.png" alt="Sky 4 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1643,7 +1667,7 @@
     <!-- Sky 5 -->
     <div class="tab-panel" id="tab-sky5" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-sky5.png" alt="Sky 5 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1664,7 +1688,7 @@
     <!-- Sky 603 -->
     <div class="tab-panel" id="tab-sky603" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-sky603.png" alt="Sky 603 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1685,7 +1709,7 @@
     <!-- Sky 604 -->
     <div class="tab-panel" id="tab-sky604" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-sky604.png" alt="Sky 604 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1706,7 +1730,7 @@
     <!-- Sky 605 -->
     <div class="tab-panel" id="tab-sky605" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-sky605.png" alt="Sky 605 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1727,7 +1751,7 @@
     <!-- Lazer -->
     <div class="tab-panel" id="tab-lazer" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-lazer.png" alt="Pavimento Lazer — Skyview" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1748,7 +1772,7 @@
     <!-- Térreo -->
     <div class="tab-panel" id="tab-terreo" role="tabpanel">
       <div class="planta-layout">
-        <div class="planta-img reveal">
+        <div class="planta-img reveal-img">
           <img src="assets/images/planta-terreo.png" alt="Pavimento Térreo — Skyview" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
@@ -1964,7 +1988,7 @@
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  document.querySelectorAll('.reveal, .reveal-img').forEach(el => revealObs.observe(el));
 
   // ─── Plantas carrossel ───
   const plantaSlides = [
