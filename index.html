@@ -283,7 +283,7 @@
     }
     .hero__title {
       font-family: 'Gilda Display', serif;
-      font-size: clamp(52px, 9vw, 128px);
+      font-size: clamp(76px, 14vw, 192px);
       font-weight: 400;
       line-height: 0.87;
       letter-spacing: -0.025em;
@@ -296,7 +296,7 @@
       color: var(--gold);
     }
     .hero__sub {
-      font-size: clamp(15px, 1.2vw, 18px);
+      font-size: clamp(15px, 1.5vw, 18px);
       font-weight: 300;
       color: var(--text-muted);
       max-width: 460px;
@@ -1206,7 +1206,7 @@
       .stats__grid { grid-template-columns: 1fr 1fr; }
       .stat { padding: var(--sp-lg) var(--sp-md); }
 
-      .hero__title { font-size: clamp(44px, 14vw, 80px); }
+      .hero__title { font-size: clamp(58px, 18vw, 100px); }
       .hero__actions { flex-direction: column; align-items: flex-start; gap: var(--sp-md); }
       .hero__sub { font-size: 15px; max-width: 90%; }
 
@@ -1235,14 +1235,7 @@
       .lb-counter { font-size: 11px; }
     }
 
-    @media (max-height: 800px) and (min-width: 601px) {
-      .hero__title { font-size: clamp(44px, 7vw, 96px); }
-      .hero__sub { margin-top: var(--sp-md); font-size: 15px; }
-      .hero__actions { margin-top: var(--sp-lg); }
-      .hero__content { padding-bottom: clamp(40px, 6vh, 72px); }
-    }
-
-    @media (max-width: 400px) {
+@media (max-width: 400px) {
       .hero__title { font-size: 52px; }
       .stats__grid { grid-template-columns: 1fr 1fr; }
     }
