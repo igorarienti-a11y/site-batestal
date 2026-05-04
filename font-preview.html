@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font Preview — Skyview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?
+    family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&
+    family=Tenor+Sans&
+    family=Rufina:wght@400;700&
+    family=Raleway:wght@300;400;500&
+    family=Marcellus&
+    family=Josefin+Sans:wght@300;400;500&
+    family=Gilda+Display&
+    family=Jost:wght@300;400;500&
+    family=Spectral:ital,wght@0,400;0,500;1,400&
+    family=Libre+Caslon+Display&
+    family=Nunito+Sans:wght@300;400;500&
+    family=Yeseva+One&
+    family=Barlow:wght@300;400;500&
+    display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:    oklch(8% 0.007 45);
+      --bg-2:  oklch(13% 0.006 45);
+      --gold:  oklch(73% 0.09 72);
+      --text:  oklch(94% 0.006 72);
+      --muted: oklch(62% 0.007 72);
+      --border: oklch(22% 0.004 45);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: sans-serif;
+      padding: 48px 24px;
+    }
+    h1.page-title {
+      font-family: 'Barlow', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    p.page-sub {
+      font-family: 'Barlow', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--bg-2);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      cursor: pointer;
+      transition: outline 0.2s;
+      outline: 2px solid transparent;
+    }
+    .card:hover { outline-color: var(--gold); }
+    .card__tag {
+      font-family: 'Barlow', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .card__label {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      opacity: 0.5;
+    }
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+    .card__body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 52ch;
+    }
+    .card__cta {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid oklch(73% 0.09 72 / 0.3);
+      padding-bottom: 3px;
+    }
+
+    /* ── Opção 1: Tenor Sans + Jost ── */
+    .opt1 .card__headline { font-family: 'Tenor Sans', sans-serif; font-size: clamp(38px, 5vw, 56px); font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
+    .opt1 .card__sub      { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300; color: var(--muted); letter-spacing: 0.04em; }
+    .opt1 .card__body     { font-family: 'Jost', sans-serif; font-weight: 300; }
+    .opt1 .card__cta      { font-family: 'Jost', sans-serif; }
+
+    /* ── Opção 2: Rufina + Raleway ── */
+    .opt2 .card__headline { font-family: 'Rufina', serif; font-size: clamp(38px, 5vw, 58px); font-weight: 400; line-height: 1.05; }
+    .opt2 .card__sub      { font-family: 'Raleway', sans-serif; font-size: 14px; font-weight: 400; color: var(--muted); letter-spacing: 0.06em; }
+    .opt2 .card__body     { font-family: 'Raleway', sans-serif; font-weight: 300; }
+    .opt2 .card__cta      { font-family: 'Raleway', sans-serif; }
+
+    /* ── Opção 3: Gilda Display + Jost ── */
+    .opt3 .card__headline { font-family: 'Gilda Display', serif; font-size: clamp(36px, 5vw, 54px); font-weight: 400; line-height: 1.08; }
+    .opt3 .card__sub      { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; }
+    .opt3 .card__body     { font-family: 'Jost', sans-serif; font-weight: 300; }
+    .opt3 .card__cta      { font-family: 'Jost', sans-serif; }
+
+    /* ── Opção 4: Marcellus + Josefin Sans ── */
+    .opt4 .card__headline { font-family: 'Marcellus', serif; font-size: clamp(36px, 5vw, 54px); font-weight: 400; line-height: 1.08; }
+    .opt4 .card__sub      { font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 400; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; }
+    .opt4 .card__body     { font-family: 'Josefin Sans', sans-serif; font-weight: 300; font-size: 13px; letter-spacing: 0.02em; }
+    .opt4 .card__cta      { font-family: 'Josefin Sans', sans-serif; }
+
+    /* ── Opção 5: Spectral + Raleway ── */
+    .opt5 .card__headline { font-family: 'Spectral', serif; font-size: clamp(36px, 5vw, 56px); font-weight: 400; font-style: italic; line-height: 1.05; }
+    .opt5 .card__sub      { font-family: 'Raleway', sans-serif; font-size: 13px; font-weight: 400; color: var(--muted); letter-spacing: 0.06em; }
+    .opt5 .card__body     { font-family: 'Raleway', sans-serif; font-weight: 300; }
+    .opt5 .card__cta      { font-family: 'Raleway', sans-serif; }
+
+    /* ── Opção 6: Libre Caslon Display + Nunito Sans ── */
+    .opt6 .card__headline { font-family: 'Libre Caslon Display', serif; font-size: clamp(34px, 4.5vw, 52px); font-weight: 400; line-height: 1.08; }
+    .opt6 .card__sub      { font-family: 'Nunito Sans', sans-serif; font-size: 13px; font-weight: 300; color: var(--muted); letter-spacing: 0.04em; }
+    .opt6 .card__body     { font-family: 'Nunito Sans', sans-serif; font-weight: 300; }
+    .opt6 .card__cta      { font-family: 'Nunito Sans', sans-serif; }
+
+    /* ── Opção 7: Yeseva One + Jost ── */
+    .opt7 .card__headline { font-family: 'Yeseva One', serif; font-size: clamp(34px, 4.5vw, 50px); font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
+    .opt7 .card__sub      { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--muted); letter-spacing: 0.05em; }
+    .opt7 .card__body     { font-family: 'Jost', sans-serif; font-weight: 300; }
+    .opt7 .card__cta      { font-family: 'Jost', sans-serif; }
+
+    /* ── Opção 8 (atual): Bodoni Moda + Barlow ── */
+    .opt8 .card__headline { font-family: 'Bodoni Moda', serif; font-size: clamp(36px, 5vw, 54px); font-weight: 400; line-height: 1.05; }
+    .opt8 .card__sub      { font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 300; color: var(--muted); }
+    .opt8 .card__body     { font-family: 'Barlow', sans-serif; font-weight: 300; }
+    .opt8 .card__cta      { font-family: 'Barlow', sans-serif; }
+    .opt8 .card__label    { color: var(--gold); opacity: 0.8; }
+
+    @media (max-width: 600px) {
+      .card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">Font Preview — Skyview 100</h1>
+  <p class="page-sub">Passe o mouse sobre cada opção para destacar. Clique para copiar o nome da combinação.</p>
+
+  <div class="grid">
+
+    <!-- 1 -->
+    <div class="card opt1" onclick="copy(this, 'Tenor Sans + Jost')">
+      <span class="card__label">01</span>
+      <span class="card__tag">Opção 01</span>
+      <h2 class="card__headline">Sky<span style="color:var(--gold)">view</span></h2>
+      <p class="card__sub">Tenor Sans + Jost — Arquitetônico, limpo</p>
+      <div class="divider"></div>
+      <p class="card__body">No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência.</p>
+      <span class="card__cta">Agendar Apresentação</span>
+    </div>
+
+    <!-- 2 -->
+    <div class="card opt2" onclick="copy(this, 'Rufina + Raleway')">
+      <span class="card__label">02</span>
+      <span class="card__tag">Opção 02</span>
+      <h2 class="card__headline">Sky<span style="color:var(--gold)">view</span></h2>
+      <p class="card__sub">Rufina + Raleway — Elegante, editorial</p>
+      <div class="divider"></div>
+      <p class="card__body">No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência.</p>
+      <span class="card__cta">Agendar Apresentação</span>
+    </div>
+
+    <!-- 3 -->
+    <div class="card opt3" onclick="copy(this, 'Gilda Display + Jost')">
+      <span class="card__label">03</span>
+      <span class="card__tag">Opção 03</span>
+      <h2 class="card__headline">Sky<span style="color:var(--gold)">view</span></h2>
+      <p class="card__sub">Gilda Display + Jost — Fashion, refinado</p>
+      <div class="divider"></div>
+      <p class="card__body">No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência.</p>
+      <span class="card__cta">Agendar Apresentação</span>
+    </div>
+
+    <!-- 4 -->
+    <div class="card opt4" onclick="copy(this, 'Marcellus + Josefin Sans')">
+      <span class="card__label">04</span>
+      <span class="card__tag">Opção 04</span>
+      <h2 class="card__headline">Sky<span style="color:var(--gold)">view</span></h2>
+      <p class="card__sub">Marcellus + Josefin Sans — Clássico, geométrico</p>
+      <div class="divider"></div>
+      <p class="card__body">No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência.</p>
+      <span class="card__cta">Agendar Apresentação</span>
+    </div>
+
+    <!-- 5 -->
+    <div class="card opt5" onclick="copy(this, 'Spectral + Raleway')">
+      <span class="card__label">05</span>
+      <span class="card__tag">Opção 05</span>
+      <h2 class="card__headline">Sky<span style="color:var(--gold)">view</span></h2>
+      <p class="card__sub">Spectral + Raleway — Literário, sofisticado</p>
+      <div class="divider"></div>
+      <p class="card__body">No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência.</p>
+      <span class="card__cta">Agendar Apresentação</span>
+    </div>
+
+    <!-- 6 -->
+    <div class="card opt6" onclick="copy(this, 'Libre Caslon Display + Nunito Sans')">
+      <span class="card__label">06</span>
+      <span class="card__tag">Opção 06</span>
+      <h2 class="card__headline">Sky<span style="color:var(--gold)">view</span></h2>
+      <p class="card__sub">Libre Caslon Display + Nunito Sans — Clássico americano</p>
+      <div class="divider"></div>
+      <p class="card__body">No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência.</p>
+      <span class="card__cta">Agendar Apresentação</span>
+    </div>
+
+    <!-- 7 -->
+    <div class="card opt7" onclick="copy(this, 'Yeseva One + Jost')">
+      <span class="card__label">07</span>
+      <span class="card__tag">Opção 07</span>
+      <h2 class="card__headline">Sky<span style="color:var(--gold)">view</span></h2>
+      <p class="card__sub">Yeseva One + Jost — Bold, contemporâneo</p>
+      <div class="divider"></div>
+      <p class="card__body">No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência.</p>
+      <span class="card__cta">Agendar Apresentação</span>
+    </div>
+
+    <!-- 8 atual -->
+    <div class="card opt8" onclick="copy(this, 'Bodoni Moda + Barlow (atual)')">
+      <span class="card__label" style="color:var(--gold);opacity:0.9">atual</span>
+      <span class="card__tag">Atual</span>
+      <h2 class="card__headline">Sky<em style="color:var(--gold);font-style:italic">view</em></h2>
+      <p class="card__sub">Bodoni Moda + Barlow — Em uso agora</p>
+      <div class="divider"></div>
+      <p class="card__body">No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência.</p>
+      <span class="card__cta">Agendar Apresentação</span>
+    </div>
+
+  </div>
+
+  <p style="text-align:center;margin-top:48px;font-family:'Barlow',sans-serif;font-size:11px;color:oklch(40% 0.005 45);letter-spacing:0.1em;">
+    Clique em qualquer opção para copiar o nome da combinação
+  </p>
+
+  <script>
+    function copy(el, name) {
+      navigator.clipboard?.writeText(name);
+      const tag = el.querySelector('.card__tag');
+      const orig = tag.textContent;
+      tag.textContent = '✓ Copiado';
+      setTimeout(() => tag.textContent = orig, 1500);
+    }
+  </script>
+
+</body>
+</html>

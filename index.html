@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyview — Batestal | Lançamento</title>
+  <meta name="description" content="Skyview — o novo lançamento da Batestal. Apartamentos de alto padrão com vista privilegiada e infraestrutura completa de lazer.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Tokens ─── */
+    :root {
+      --bg:           oklch(8% 0.007 45);
+      --bg-2:         oklch(11.5% 0.006 45);
+      --bg-3:         oklch(16% 0.005 45);
+      --gold:         oklch(73% 0.09 72);
+      --gold-dim:     oklch(73% 0.09 72 / 0.12);
+      --gold-border:  oklch(73% 0.09 72 / 0.28);
+      --text:         oklch(94% 0.006 72);
+      --text-muted:   oklch(62% 0.007 72);
+      --text-dim:     oklch(42% 0.005 72);
+      --border:       oklch(20% 0.004 45);
+
+      --sp-xs:  4px;
+      --sp-sm:  8px;
+      --sp-md:  16px;
+      --sp-lg:  24px;
+      --sp-xl:  48px;
+      --sp-2xl: 80px;
+      --sp-3xl: 128px;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ─── Layout helpers ─── */
+    .container {
+      max-width: 1340px;
+      margin-inline: auto;
+      padding-inline: clamp(var(--sp-md), 5vw, var(--sp-xl));
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ─── Reveal animations ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      will-change: transform, opacity;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+
+    /* ─── Buttons ─── */
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-sm);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--gold);
+      padding: 14px 36px;
+      transition: opacity 0.2s, transform 0.2s var(--ease);
+    }
+    .btn-gold:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    .btn-outline {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--text-dim);
+      padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-outline:hover { color: var(--text); border-color: var(--text-muted); }
+
+    /* ═══════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.2s, backdrop-filter 0.2s, padding 0.2s, border-color 0.2s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.solid {
+      background: oklch(8% 0.007 45 / 0.93);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 14px 0;
+      border-bottom-color: var(--border);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-lg);
+    }
+    .nav__logo img { height: 32px; width: auto; filter: brightness(0) invert(1); opacity: 0.9; }
+    .nav__links {
+      display: flex;
+      gap: clamp(20px, 3vw, 40px);
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.25s var(--ease);
+    }
+    .nav__links a:hover { color: var(--text); }
+    .nav__links a:hover::after { transform: scaleX(1); }
+    .nav__cta {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--gold);
+      padding: 10px 24px;
+      flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav__cta:hover { opacity: 0.88; transform: translateY(-1px); }
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav__burger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+      transform-origin: center;
+    }
+    .nav__burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav__mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: oklch(8% 0.007 45 / 0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-xl);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease);
+    }
+    .nav__mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 860px) {
+      .nav__mobile-menu { display: flex; }
+    }
+    .nav__mobile-menu a {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(28px, 7vw, 42px);
+      font-weight: 400;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .nav__mobile-menu a:hover { color: var(--text); }
+    .nav__mobile-menu .nav__mobile-cta {
+      margin-top: var(--sp-lg);
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--gold);
+      padding: 14px 36px;
+    }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      position: relative;
+      height: 100dvh;
+      min-height: 640px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero__video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to right,
+          oklch(8% 0.007 45 / 0.88) 0%,
+          oklch(8% 0.007 45 / 0.55) 55%,
+          oklch(8% 0.007 45 / 0.2) 100%
+        ),
+        linear-gradient(
+          to bottom,
+          oklch(8% 0.007 45 / 0.5) 0%,
+          oklch(8% 0.007 45 / 0.35) 40%,
+          oklch(8% 0.007 45 / 0.65) 70%,
+          oklch(8% 0.007 45 / 0.98) 100%
+        );
+    }
+    .hero__content {
+      position: relative;
+      z-index: 1;
+      padding-bottom: clamp(56px, 9vh, 96px);
+    }
+    .hero__eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--sp-lg);
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 0.1s forwards;
+    }
+    .hero__title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(76px, 14vw, 192px);
+      font-weight: 400;
+      line-height: 0.87;
+      letter-spacing: -0.025em;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease) 0.22s forwards;
+    }
+    .hero__title em {
+      display: block;
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero__sub {
+      font-size: clamp(15px, 1.5vw, 18px);
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 460px;
+      margin-top: var(--sp-lg);
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 0.4s forwards;
+    }
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-lg);
+      margin-top: var(--sp-xl);
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 0.56s forwards;
+    }
+    .hero__scroll-indicator {
+      position: absolute;
+      bottom: 28px;
+      right: clamp(var(--sp-md), 5vw, var(--sp-xl));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.9s forwards;
+    }
+    .hero__scroll-indicator span {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 56px;
+      background: var(--gold-border);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      animation: scrollDown 2.2s linear infinite;
+      will-change: top;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scrollDown {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* ═══════════════════════════════════════
+       STATS
+    ═══════════════════════════════════════ */
+    .stats {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--border);
+      gap: 1px;
+    }
+    .stat {
+      background: var(--bg-2);
+      padding: var(--sp-xl) var(--sp-lg);
+      text-align: center;
+    }
+    .stat__num {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(42px, 5.5vw, 68px);
+      font-weight: 400;
+      line-height: 1;
+      color: var(--gold);
+    }
+    .stat__label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: var(--sp-sm);
+    }
+
+    /* ═══════════════════════════════════════
+       SOBRE
+    ═══════════════════════════════════════ */
+    .sobre {
+      padding: var(--sp-3xl) 0;
+    }
+    .sobre__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(var(--sp-xl), 8vw, 120px);
+      align-items: center;
+    }
+    .sobre__headline {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(34px, 4.5vw, 58px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: var(--sp-lg) 0 var(--sp-xl);
+    }
+    .sobre__headline em { font-style: italic; color: var(--gold); }
+    .sobre__divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold-border);
+      margin-bottom: var(--sp-xl);
+    }
+    .sobre__body {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+    .sobre__body + .sobre__body { margin-top: var(--sp-md); }
+    .sobre__cta { margin-top: var(--sp-xl); }
+    .sobre__img-wrap {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .sobre__img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .sobre__img-wrap:hover img { transform: scale(1.04); }
+    .sobre__badge {
+      position: absolute;
+      bottom: var(--sp-lg);
+      left: var(--sp-lg);
+      background: oklch(8% 0.007 45 / 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--gold-border);
+      padding: 16px 22px;
+    }
+    .sobre__badge strong {
+      display: block;
+      font-family: 'Gilda Display', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .sobre__badge span {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════
+       VIDEO
+    ═══════════════════════════════════════ */
+    .video-sec {
+      padding: var(--sp-3xl) 0;
+      background: var(--bg-2);
+    }
+    .video-sec__head {
+      text-align: center;
+      margin-bottom: var(--sp-2xl);
+    }
+    .video-sec__title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-top: var(--sp-md);
+    }
+    .video-sec__title em { font-style: italic; color: var(--gold); }
+    .video-player-wrap {
+      max-width: 1100px;
+      margin-inline: auto;
+      overflow: hidden;
+      background: oklch(4% 0.004 45);
+    }
+    .video-player-wrap video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    /* ═══════════════════════════════════════
+       ÁREAS DE LAZER
+    ═══════════════════════════════════════ */
+    .areas {
+      padding: var(--sp-3xl) 0;
+    }
+    .areas__head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--sp-lg);
+      margin-bottom: var(--sp-2xl);
+      flex-wrap: wrap;
+    }
+    .areas__title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-top: var(--sp-md);
+    }
+    .areas__title em { font-style: italic; color: var(--gold); }
+
+    /* Mosaic grid */
+    .areas__mosaic {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 300px 300px;
+      gap: 6px;
+    }
+    .area-tile { position: relative; overflow: hidden; }
+    .area-tile:nth-child(1) { grid-column: 1 / 8;  grid-row: 1 / 3; }
+    .area-tile:nth-child(2) { grid-column: 8 / 13; grid-row: 1 / 2; }
+    .area-tile:nth-child(3) { grid-column: 8 / 10; grid-row: 2 / 3; }
+    .area-tile:nth-child(4) { grid-column: 10 / 13; grid-row: 2 / 3; }
+
+    .area-tile img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .area-tile:hover img { transform: scale(1.07); }
+    .area-tile__grad {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, oklch(6% 0.006 45 / 0.88) 0%, transparent 55%);
+    }
+    .area-tile__label {
+      position: absolute;
+      bottom: var(--sp-lg);
+      left: var(--sp-lg);
+    }
+    .area-tile__name {
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+    }
+    .area-tile__detail {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Second row of areas */
+    .areas__list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .area-mini {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .area-mini img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .area-mini:hover img { transform: scale(1.07); }
+    .area-mini__grad {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, oklch(6% 0.006 45 / 0.85) 0%, transparent 55%);
+    }
+    .area-mini__name {
+      position: absolute;
+      bottom: var(--sp-md);
+      left: var(--sp-md);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    /* ═══════════════════════════════════════
+       INTERIORES / SLIDER
+    ═══════════════════════════════════════ */
+    .interiores {
+      padding: var(--sp-3xl) 0;
+      background: var(--bg-2);
+      overflow: hidden;
+    }
+    .interiores__head {
+      margin-bottom: var(--sp-2xl);
+    }
+    .interiores__title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-top: var(--sp-md);
+    }
+    .interiores__title em { font-style: italic; color: var(--gold); }
+    .interiores__body {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-top: var(--sp-md);
+    }
+    .slider__track {
+      display: flex;
+      gap: var(--sp-md);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+      padding-inline: clamp(var(--sp-md), 5vw, var(--sp-xl));
+    }
+    .slider__track::-webkit-scrollbar { display: none; }
+    .slider__track.grabbing { cursor: grabbing; user-select: none; }
+    .slide {
+      flex: 0 0 clamp(280px, 48vw, 640px);
+      aspect-ratio: 3/2;
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s var(--ease);
+      pointer-events: none;
+    }
+    .slide:hover img { transform: scale(1.04); }
+    .slider__nav {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-md);
+      margin-top: var(--sp-xl);
+      padding-inline: clamp(var(--sp-md), 5vw, var(--sp-xl));
+    }
+    .slider__btn {
+      width: 48px; height: 48px;
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .slider__btn:hover { background: var(--gold-dim); }
+    .slider__btn svg { width: 15px; height: 15px; }
+
+    /* ═══════════════════════════════════════
+       PLANTAS
+    ═══════════════════════════════════════ */
+    .plantas {
+      padding: var(--sp-3xl) 0;
+    }
+    .plantas__head { margin-bottom: var(--sp-2xl); }
+    .plantas__title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-top: var(--sp-md);
+    }
+    .plantas__title em { font-style: italic; color: var(--gold); }
+    .planta-carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--sp-2xl);
+      gap: var(--sp-lg);
+    }
+    .planta-arrow {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .planta-arrow:hover { background: var(--gold-dim); border-color: var(--gold); }
+    .planta-arrow:disabled { opacity: 0.25; cursor: default; }
+    .planta-arrow svg { width: 18px; height: 18px; }
+    .planta-carousel-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+    .planta-carousel-counter {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .planta-carousel-name {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--gold);
+    }
+    .planta-dots {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .planta-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background 0.2s, width 0.2s var(--ease), border-radius 0.2s;
+      flex-shrink: 0;
+    }
+    .planta-dot.active {
+      background: var(--gold);
+      width: 22px;
+      border-radius: 3px;
+    }
+    .tab-panel {
+      display: none;
+      animation: plantaFade 0.4s var(--ease);
+    }
+    .tab-panel.active { display: block; }
+    @keyframes plantaFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .planta-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(var(--sp-xl), 6vw, 96px);
+      align-items: center;
+    }
+    .planta-img {
+      background: oklch(97% 0.004 72);
+      padding: clamp(20px, 4vw, 40px);
+      outline: 1px solid oklch(73% 0.09 72 / 0.22);
+      outline-offset: -1px;
+      box-shadow:
+        0 2px 6px oklch(0% 0 0 / 0.12),
+        0 8px 28px oklch(0% 0 0 / 0.22),
+        inset 0 0 0 8px oklch(97% 0.004 72);
+      position: relative;
+    }
+    .planta-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      outline: 1px solid oklch(73% 0.09 72 / 0.12);
+      outline-offset: 8px;
+      pointer-events: none;
+    }
+    .planta-img img { width: 100%; display: block; }
+    .planta-desc__title {
+      font-family: 'Gilda Display', serif;
+      font-size: 34px;
+      font-weight: 400;
+      margin-bottom: var(--sp-xl);
+    }
+    .planta-desc__title em { font-style: italic; color: var(--gold); }
+    .planta-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .planta-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .planta-features li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 14px;
+      height: 1px;
+      background: var(--gold);
+      margin-top: 10px;
+    }
+    .planta-desc__cta { margin-top: var(--sp-xl); }
+
+    /* ═══════════════════════════════════════
+       LOCALIZAÇÃO
+    ═══════════════════════════════════════ */
+    .loc {
+      padding: var(--sp-3xl) 0;
+      background: var(--bg-2);
+    }
+    .loc__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(var(--sp-xl), 7vw, 96px);
+      align-items: start;
+    }
+    .loc__title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin: var(--sp-md) 0 var(--sp-xl);
+    }
+    .loc__address {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--sp-xl);
+    }
+    .loc__address strong { font-weight: 400; color: var(--text); }
+    .loc__points {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .loc-pt {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-md);
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .loc-pt__dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .map-box {
+      aspect-ratio: 5/4;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+    /* When map iframe is added, it should fill the box */
+    .map-box iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* ═══════════════════════════════════════
+       BATESTAL
+    ═══════════════════════════════════════ */
+    .batestal {
+      padding: var(--sp-3xl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .batestal__bg-img {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .batestal__bg-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.1;
+      filter: grayscale(40%);
+    }
+    .batestal__grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(var(--sp-xl), 8vw, 120px);
+      align-items: center;
+    }
+    .batestal__title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin: var(--sp-md) 0 var(--sp-xl);
+    }
+    .batestal__title em { font-style: italic; color: var(--gold); }
+    .batestal__body {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      max-width: 520px;
+    }
+    .batestal__body + .batestal__body { margin-top: var(--sp-md); }
+    .batestal__logo-side {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .batestal__logo-side img { max-width: 340px; width: 100%; }
+
+    /* ═══════════════════════════════════════
+       FORMULÁRIO
+    ═══════════════════════════════════════ */
+    .form-sec {
+      padding: var(--sp-3xl) 0;
+      position: relative;
+    }
+    .form-sec__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .form-sec__bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.07;
+    }
+    .form-sec__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin-inline: auto;
+      text-align: center;
+    }
+    .form-sec__title {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(34px, 5.5vw, 68px);
+      font-weight: 400;
+      line-height: 1.05;
+      margin: var(--sp-md) 0 var(--sp-sm);
+    }
+    .form-sec__title em { font-style: italic; color: var(--gold); }
+    .form-sec__sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: var(--sp-2xl);
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-md);
+      text-align: left;
+    }
+    .form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-md);
+    }
+    .fgroup {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .fgroup label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .fgroup input,
+    .fgroup select {
+      background: oklch(15% 0.005 45);
+      border: 1px solid oklch(28% 0.005 45);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      padding: 14px 16px;
+      outline: none;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.2s;
+    }
+    .fgroup input::placeholder { color: var(--text-muted); }
+    .fgroup input:focus,
+    .fgroup select:focus { border-color: var(--gold-border); }
+    .fgroup select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 42px;
+    }
+    .fgroup select option { background: oklch(15% 0.005 45); }
+    .form__submit {
+      width: 100%;
+      padding: 18px;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: var(--sp-sm);
+      transition: opacity 0.2s, transform 0.2s var(--ease);
+    }
+    .form__submit:hover:not(:disabled) { opacity: 0.88; transform: translateY(-2px); }
+    .form__submit:disabled { opacity: 0.6; cursor: default; }
+    .form__disclaimer {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: var(--sp-sm);
+      line-height: 1.6;
+    }
+    .form__success {
+      display: none;
+      text-align: center;
+      padding: var(--sp-2xl) 0;
+    }
+    .form__success.show { display: block; }
+    .form__success__icon {
+      font-size: 40px;
+      margin-bottom: var(--sp-md);
+    }
+    .form__success__title {
+      font-family: 'Gilda Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: var(--sp-sm);
+    }
+    .form__success__sub { color: var(--text-muted); font-size: 16px; }
+
+    /* ═══════════════════════════════════════
+       LIGHTBOX
+    ═══════════════════════════════════════ */
+    .lb-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: oklch(4% 0.005 45 / 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--ease);
+    }
+    .lb-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lb-img-wrap {
+      position: relative;
+      max-width: min(92vw, 1200px);
+      max-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lb-img-wrap img {
+      max-width: 100%;
+      max-height: 88vh;
+      object-fit: contain;
+      display: block;
+      transition: opacity 0.25s ease, transform 0.25s var(--ease);
+    }
+    .lb-img-wrap img.switching {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    .lb-close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 28px;
+      font-weight: 300;
+      transition: color 0.2s;
+      z-index: 1001;
+      line-height: 1;
+    }
+    .lb-close:hover { color: var(--text); }
+    .lb-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px; height: 52px;
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1001;
+      transition: background 0.2s;
+    }
+    .lb-btn:hover { background: var(--gold-dim); }
+    .lb-btn svg { width: 18px; height: 18px; }
+    .lb-prev { left: 20px; }
+    .lb-next { right: 20px; }
+    .lb-counter {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+    .lb-caption {
+      position: fixed;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    /* Clickable image cursor */
+    [data-lb] { cursor: zoom-in; }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    .footer {
+      padding: var(--sp-xl) 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-md);
+      flex-wrap: wrap;
+    }
+    .footer__logo img { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: 0.6; }
+    .footer__copy { font-size: 12px; color: var(--text-dim); }
+    .footer__credit { font-size: 12px; color: var(--text-dim); }
+    .footer__credit strong { font-weight: 400; color: var(--text-muted); }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .areas__mosaic {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 240px 240px 240px;
+      }
+      .area-tile:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 2; }
+      .area-tile:nth-child(2) { grid-column: 1 / 2; grid-row: 2 / 3; }
+      .area-tile:nth-child(3) { grid-column: 2 / 3; grid-row: 2 / 3; }
+      .area-tile:nth-child(4) { grid-column: 1 / 3; grid-row: 3 / 4; }
+    }
+
+    @media (max-width: 860px) {
+      .nav.solid,
+      .nav__mobile-menu,
+      .sobre__badge {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+
+      .nav__links { display: none; }
+      .nav__burger { display: flex; }
+
+      .sobre__grid    { grid-template-columns: 1fr; }
+      .sobre__img-wrap { aspect-ratio: 3/2; max-width: 100%; }
+
+      .planta-layout  { grid-template-columns: 1fr; }
+      .loc__grid      { grid-template-columns: 1fr; }
+      .batestal__grid { grid-template-columns: 1fr; }
+      .batestal__logo-side { justify-content: flex-start; }
+
+      .stats__grid    { grid-template-columns: 1fr 1fr; }
+
+      .video-sec__title { font-size: clamp(22px, 6vw, 36px); }
+
+      .lb-btn { width: 40px; height: 40px; }
+      .lb-prev { left: 8px; }
+      .lb-next { right: 8px; }
+    }
+
+    @media (max-width: 600px) {
+      .form__row { grid-template-columns: 1fr; }
+
+      .areas__mosaic {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 240px);
+      }
+      .area-tile:nth-child(n) { grid-column: 1; grid-row: auto; }
+
+      .stats__grid { grid-template-columns: 1fr 1fr; }
+      .stat { padding: var(--sp-lg) var(--sp-md); }
+
+      .hero__title { font-size: clamp(58px, 18vw, 100px); }
+      .hero__actions { flex-direction: column; align-items: flex-start; gap: var(--sp-md); }
+      .hero__sub { font-size: 15px; max-width: 90%; }
+
+      .sobre__headline { font-size: clamp(28px, 8vw, 42px); }
+
+      .areas__title,
+      .interiores__title,
+      .plantas__title,
+      .video-sec__title,
+      .batestal__title,
+      .loc__title { font-size: clamp(24px, 7vw, 36px); }
+
+      .form-sec__title { font-size: clamp(28px, 9vw, 48px); }
+
+      .slide { flex: 0 0 85vw; }
+
+      .planta-arrow { width: 42px; height: 42px; }
+      .planta-carousel-name { font-size: 20px; }
+
+      .planta-img { padding: var(--sp-md); box-shadow: 0 2px 8px oklch(0% 0 0 / 0.18), 0 8px 24px oklch(0% 0 0 / 0.24); }
+
+      .footer__inner { flex-direction: column; align-items: flex-start; gap: var(--sp-sm); }
+      .footer__copy { font-size: 11px; }
+
+      .lb-caption { font-size: 12px; bottom: 40px; }
+      .lb-counter { font-size: 11px; }
+    }
+
+    @media (max-width: 400px) {
+      .hero__title { font-size: 52px; }
+      .stats__grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════ NAVBAR ════════════ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo" aria-label="Batestal">
+        <img src="assets/images/logo-branco.png" alt="Batestal 65 Anos">
+      </a>
+      <ul class="nav__links">
+        <li><a href="#sobre">O Empreendimento</a></li>
+        <li><a href="#areas">Áreas</a></li>
+        <li><a href="#plantas">Plantas</a></li>
+        <li><a href="#batestal">A Construtora</a></li>
+      </ul>
+      <a href="#contato" class="nav__cta">Quero Saber Mais</a>
+      <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="nav__mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegação" aria-hidden="true">
+  <a href="#sobre" class="nav__mobile-link">O Empreendimento</a>
+  <a href="#areas" class="nav__mobile-link">Áreas de Lazer</a>
+  <a href="#plantas" class="nav__mobile-link">Plantas</a>
+  <a href="#batestal" class="nav__mobile-link">A Construtora</a>
+  <a href="#contato" class="nav__mobile-cta">Quero Saber Mais</a>
+</div>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero" id="hero">
+  <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/images/fachada-noturna.jpg">
+    <source src="assets/video/skyview-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <p class="hero__eyebrow">Batestal — Inspirado em Você</p>
+    <h1 class="hero__title">
+      Sky<em>view</em>
+    </h1>
+    <p class="hero__sub">
+      No Centro de Itajaí, um lançamento que redefine o padrão. Conforto, tecnologia e lazer completo — tudo em um único endereço.
+    </p>
+    <div class="hero__actions">
+      <a href="#contato" class="btn-gold">Agendar Apresentação</a>
+      <a href="#sobre" class="btn-outline">Conhecer o Projeto</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll-indicator" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ════════════ STATS ════════════ -->
+<section class="stats" aria-label="Números do empreendimento">
+  <div class="container">
+    <div class="stats__grid">
+      <div class="stat reveal">
+        <div class="stat__num">6</div>
+        <div class="stat__label">Tipologias Disponíveis</div>
+      </div>
+      <div class="stat reveal d1">
+        <div class="stat__num">+150<span style="font-size:0.45em;vertical-align:middle"> mil m²</span></div>
+        <div class="stat__label">Entregues na Região</div>
+      </div>
+      <div class="stat reveal d2">
+        <div class="stat__num">10+</div>
+        <div class="stat__label">Itens de Lazer</div>
+      </div>
+      <div class="stat reveal d3">
+        <div class="stat__num">65</div>
+        <div class="stat__label">Anos de História</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SOBRE ════════════ -->
+<section class="sobre" id="sobre">
+  <div class="container">
+    <div class="sobre__grid">
+      <div>
+        <p class="section-label reveal">O Empreendimento</p>
+        <h2 class="sobre__headline reveal d1">
+          Onde cada <em>detalhe</em><br>define um padrão
+        </h2>
+        <div class="sobre__divider reveal d2"></div>
+        <p class="sobre__body reveal d2">
+          No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência. Conforto, segurança e funcionalidade em cada detalhe — dos acabamentos premium às tecnologias de automação e sustentabilidade.
+        </p>
+        <p class="sobre__body reveal d3">
+          Com 5 tipologias exclusivas e um pavimento Sky Garden com terraços privativos, o empreendimento oferece a flexibilidade ideal para diferentes estilos de vida — tudo isso com a solidez de uma construtora com 65 anos e mais de 150 mil m² entregues.
+        </p>
+        <div class="sobre__cta reveal d4">
+          <a href="#contato" class="btn-gold">Agendar Apresentação</a>
+        </div>
+      </div>
+
+      <div class="sobre__img-wrap reveal d2">
+        <img src="assets/images/fachada-noturna.jpg" alt="Skyview — Fachada Noturna" loading="lazy">
+        <div class="sobre__badge">
+          <strong>65</strong>
+          <span>Anos Batestal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ VIDEO ════════════ -->
+<section class="video-sec" id="video">
+  <div class="container">
+    <div class="video-sec__head">
+      <h2 class="video-sec__title reveal d1">
+        Conheça o <em>Skyview</em>
+      </h2>
+    </div>
+    <div class="video-player-wrap reveal d2">
+      <video
+        controls
+        preload="none"
+        poster="assets/images/thumb-video.jpg"
+        aria-label="Vídeo de apresentação do Skyview"
+      >
+        <source src="assets/video/skyview-video-full.mp4" type="video/mp4">
+
+        Seu navegador não suporta a reprodução de vídeo.
+      </video>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ════════════ ÁREAS ════════════ -->
+<section class="areas" id="areas">
+  <div class="container">
+    <div class="areas__head">
+      <div>
+        <p class="section-label reveal">Áreas de Lazer</p>
+        <h2 class="areas__title reveal d1">
+          Uma vida <em>além</em><br>do esperado
+        </h2>
+      </div>
+    </div>
+
+    <!-- Mosaic principal -->
+    <div class="areas__mosaic reveal d2">
+      <div class="area-tile" data-lb="areas" data-lb-src="assets/images/piscina.jpg" data-lb-caption="Piscina">
+        <img src="assets/images/piscina.jpg" alt="Piscina" loading="lazy">
+        <div class="area-tile__grad"></div>
+        <div class="area-tile__label">
+          <div class="area-tile__name">Piscina</div>
+          <div class="area-tile__detail">Deck panorâmico com vista para a cidade</div>
+        </div>
+      </div>
+      <div class="area-tile" data-lb="areas" data-lb-src="assets/images/hall.jpg" data-lb-caption="Hall de Entrada">
+        <img src="assets/images/hall.jpg" alt="Hall de Entrada" loading="lazy">
+        <div class="area-tile__grad"></div>
+        <div class="area-tile__label">
+          <div class="area-tile__name">Hall de Entrada</div>
+          <div class="area-tile__detail">Entrada imponente com concierge</div>
+        </div>
+      </div>
+      <div class="area-tile" data-lb="areas" data-lb-src="assets/images/gourmet.jpg" data-lb-caption="Espaço Gourmet">
+        <img src="assets/images/gourmet.jpg" alt="Espaço Gourmet" loading="lazy">
+        <div class="area-tile__grad"></div>
+        <div class="area-tile__label">
+          <div class="area-tile__name">Espaço Gourmet</div>
+          <div class="area-tile__detail">Churrasqueira com vista panorâmica da cidade</div>
+        </div>
+      </div>
+      <div class="area-tile" data-lb="areas" data-lb-src="assets/images/academia.jpg" data-lb-caption="Academia">
+        <img src="assets/images/academia.jpg" alt="Academia" loading="lazy">
+        <div class="area-tile__grad"></div>
+        <div class="area-tile__label">
+          <div class="area-tile__name">Academia</div>
+          <div class="area-tile__detail">Equipamentos profissionais, interna e externa</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid complementar -->
+    <div class="areas__list reveal d3">
+      <div class="area-mini" data-lb="areas" data-lb-src="assets/images/festas.jpg" data-lb-caption="Salão de Festas">
+        <img src="assets/images/festas.jpg" alt="Salão de Festas" loading="lazy">
+        <div class="area-mini__grad"></div>
+        <div class="area-mini__name">Salão de Festas</div>
+      </div>
+      <div class="area-mini" data-lb="areas" data-lb-src="assets/images/playground.jpg" data-lb-caption="Playground">
+        <img src="assets/images/playground.jpg" alt="Playground" loading="lazy">
+        <div class="area-mini__grad"></div>
+        <div class="area-mini__name">Playground</div>
+      </div>
+      <div class="area-mini" data-lb="areas" data-lb-src="assets/images/vaga-eletrica.jpg" data-lb-caption="Vaga Elétrica">
+        <img src="assets/images/vaga-eletrica.jpg" alt="Vaga Elétrica" loading="lazy">
+        <div class="area-mini__grad"></div>
+        <div class="area-mini__name">Vaga Elétrica</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ INTERIORES ════════════ -->
+<section class="interiores" id="interiores">
+  <div class="container">
+    <div class="interiores__head">
+      <p class="section-label reveal">Apartamentos</p>
+      <h2 class="interiores__title reveal d1">
+        Ambientes que<br>inspiram <em>viver</em>
+      </h2>
+      <p class="interiores__body reveal d2">
+        Acabamentos de alto padrão, planta inteligente e janelas que enquadram a cidade como uma obra de arte.
+      </p>
+    </div>
+  </div>
+
+  <div class="slider__track reveal d3" id="sliderTrack" role="region" aria-label="Galeria de interiores">
+    <div class="slide" data-lb="interiores" data-lb-src="assets/images/living-01.jpg" data-lb-caption="Sala de Estar Integrada">
+      <img src="assets/images/living-01.jpg" alt="Sala de estar integrada" loading="lazy">
+    </div>
+    <div class="slide" data-lb="interiores" data-lb-src="assets/images/living-02.jpg" data-lb-caption="Sala com Cozinha Americana">
+      <img src="assets/images/living-02.jpg" alt="Sala com cozinha americana" loading="lazy">
+    </div>
+    <div class="slide" data-lb="interiores" data-lb-src="assets/images/living-03.jpg" data-lb-caption="Sala de Jantar">
+      <img src="assets/images/living-03.jpg" alt="Sala de jantar" loading="lazy">
+    </div>
+    <div class="slide" data-lb="interiores" data-lb-src="assets/images/suite.jpg" data-lb-caption="Suíte Master">
+      <img src="assets/images/suite.jpg" alt="Suíte master" loading="lazy">
+    </div>
+  </div>
+  <div class="slider__nav">
+    <button class="slider__btn" id="prevBtn" aria-label="Imagem anterior">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 3L5 8l5 5"/>
+      </svg>
+    </button>
+    <button class="slider__btn" id="nextBtn" aria-label="Próxima imagem">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 3l5 5-5 5"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- ════════════ PLANTAS ════════════ -->
+<section class="plantas" id="plantas">
+  <div class="container">
+    <div class="plantas__head">
+      <p class="section-label reveal">Plantas</p>
+      <h2 class="plantas__title reveal d1">
+        Espaços pensados<br>com <em>precisão</em>
+      </h2>
+    </div>
+
+    <div class="planta-carousel-nav reveal d2">
+      <button class="planta-arrow" id="plantaPrev" aria-label="Planta anterior">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4L6 9l5 5"/></svg>
+      </button>
+      <div class="planta-carousel-info">
+        <span class="planta-carousel-counter" id="plantaCounter">1 / 10</span>
+        <span class="planta-carousel-name" id="plantaName">Sky 1</span>
+        <div class="planta-dots" id="plantaDots"></div>
+      </div>
+      <button class="planta-arrow" id="plantaNext" aria-label="Próxima planta">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4l5 5-5 5"/></svg>
+      </button>
+    </div>
+
+    <!-- Sky 1 -->
+    <div class="tab-panel active" id="tab-sky1" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-sky1.png" alt="Sky 1 — Planta" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title"><em>Sky 1</em></h3>
+          <ul class="planta-features">
+            <li>2 suítes + home office / dormitório</li>
+            <li>Área privativa: 90 m²</li>
+            <li>Área total: 147 m²</li>
+            <li>Varanda gourmet com churrasqueira</li>
+            <li>Cozinha americana integrada</li>
+            <li>Fechadura digital e automação</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Tenho Interesse</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sky 2 -->
+    <div class="tab-panel" id="tab-sky2" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-sky2.png" alt="Sky 2 — Planta" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title"><em>Sky 2</em></h3>
+          <ul class="planta-features">
+            <li>2 suítes + lavabo</li>
+            <li>Área privativa: 70 m²</li>
+            <li>Área total: 71 m²</li>
+            <li>Sacada com guarda-corpo em vidro</li>
+            <li>Sala integrada com cozinha</li>
+            <li>Fechadura digital e automação</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Tenho Interesse</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sky 3 -->
+    <div class="tab-panel" id="tab-sky3" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-sky3.png" alt="Sky 3 — Planta" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title"><em>Sky 3</em></h3>
+          <ul class="planta-features">
+            <li>1 suíte + 1 dormitório</li>
+            <li>Área privativa: 60 m²</li>
+            <li>Área total: 98 m²</li>
+            <li>Sala de estar e jantar integradas</li>
+            <li>Cozinha americana</li>
+            <li>Fechadura digital e automação</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Tenho Interesse</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sky 4 -->
+    <div class="tab-panel" id="tab-sky4" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-sky4.png" alt="Sky 4 — Planta" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title"><em>Sky 4</em></h3>
+          <ul class="planta-features">
+            <li>1 suíte + 1 dormitório</li>
+            <li>Área privativa: 63 m²</li>
+            <li>Área total: 103 m²</li>
+            <li>Terraço de uso privativo</li>
+            <li>Layout compacto e funcional</li>
+            <li>Fechadura digital e automação</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Tenho Interesse</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sky 5 -->
+    <div class="tab-panel" id="tab-sky5" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-sky5.png" alt="Sky 5 — Planta" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title"><em>Sky 5</em></h3>
+          <ul class="planta-features">
+            <li>1 suíte + 1 dormitório</li>
+            <li>Área privativa: 63 m²</li>
+            <li>Área total: 103 m²</li>
+            <li>Sala de estar e jantar integradas</li>
+            <li>Varanda privativa</li>
+            <li>Fechadura digital e automação</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Tenho Interesse</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sky 603 -->
+    <div class="tab-panel" id="tab-sky603" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-sky603.png" alt="Sky 603 — Planta" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title"><em>Sky 603</em></h3>
+          <ul class="planta-features">
+            <li>1 suíte + 1 dormitório + terraço privativo</li>
+            <li>Área privativa: 71 m²</li>
+            <li>Área total: 112 m²</li>
+            <li>Terraço descoberto de uso privativo</li>
+            <li>Experiência de living ao ar livre</li>
+            <li>Fechadura digital e automação</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Tenho Interesse</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sky 604 -->
+    <div class="tab-panel" id="tab-sky604" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-sky604.png" alt="Sky 604 — Planta" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title"><em>Sky 604</em></h3>
+          <ul class="planta-features">
+            <li>1 suíte + 1 dormitório + terraço privativo</li>
+            <li>Área privativa: 71 m²</li>
+            <li>Área total: 113 m²</li>
+            <li>Terraço descoberto de uso privativo</li>
+            <li>Experiência de living ao ar livre</li>
+            <li>Fechadura digital e automação</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Tenho Interesse</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sky 605 -->
+    <div class="tab-panel" id="tab-sky605" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-sky605.png" alt="Sky 605 — Planta" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title"><em>Sky 605</em></h3>
+          <ul class="planta-features">
+            <li>1 suíte + 1 dormitório + terraço privativo</li>
+            <li>Área privativa: 71 m²</li>
+            <li>Área total: 115 m²</li>
+            <li>Terraço descoberto de uso privativo</li>
+            <li>Experiência de living ao ar livre</li>
+            <li>Fechadura digital e automação</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Tenho Interesse</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lazer -->
+    <div class="tab-panel" id="tab-lazer" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-lazer.png" alt="Pavimento Lazer — Skyview" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title">Pavimento <em>Lazer</em></h3>
+          <ul class="planta-features">
+            <li>Piscina adulto e infantil com aquecimento</li>
+            <li>Academia interna e externa</li>
+            <li>Salão de festas climatizado</li>
+            <li>Espaço gourmet e churrasqueira</li>
+            <li>Brinquedoteca</li>
+            <li>Espaço coletivo dog</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Consultar Metragens</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Térreo -->
+    <div class="tab-panel" id="tab-terreo" role="tabpanel">
+      <div class="planta-layout">
+        <div class="planta-img reveal">
+          <img src="assets/images/planta-terreo.png" alt="Pavimento Térreo — Skyview" loading="lazy">
+        </div>
+        <div class="planta-desc reveal d2">
+          <h3 class="planta-desc__title">Pavimento <em>Térreo</em></h3>
+          <ul class="planta-features">
+            <li>Reconhecimento facial para moradores</li>
+            <li>4 elevadores de alta velocidade</li>
+            <li>Infraestrutura para recarga elétrica veicular</li>
+            <li>Vagas de garagem de até 80 m²</li>
+            <li>Vestiário exclusivo para bicicletas e motos</li>
+            <li>Geração de energia solar para áreas comuns</li>
+          </ul>
+          <div class="planta-desc__cta"><a href="#contato" class="btn-gold">Consultar Metragens</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ LOCALIZAÇÃO ════════════ -->
+<section class="loc" id="localizacao">
+  <div class="container">
+    <div class="loc__grid">
+      <div>
+        <p class="section-label reveal">Localização</p>
+        <h2 class="loc__title reveal d1">No coração<br>da cidade</h2>
+        <p class="loc__address reveal d2">
+          <strong>Rua Uruguai, 100</strong><br>
+          Centro — Itajaí / SC
+        </p>
+        <div class="loc__points reveal d3">
+          <div class="loc-pt"><div class="loc-pt__dot"></div>Maior PIB de Santa Catarina</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>Região livre de riscos de enchentes</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>Shoppings, restaurantes e cultura a pé</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>Mobilidade urbana e serviço público eficiente</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>Cidade líder em crescimento e valorização</div>
+        </div>
+      </div>
+      <div class="map-box reveal d2">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3565.2854821694905!2d-48.66677012393903!3d-26.90812717668697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94d8d0e0dbb5c4df%3A0x2e3c4e08eb7ac38e!2sR.%20Uruguai%2C%20100%20-%20Centro%2C%20Itaja%C3%AD%20-%20SC!5e0!3m2!1spt-BR!2sbr!4v1714000000000"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização Skyview 100 — Rua Uruguai, 100, Centro, Itajaí/SC"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ BATESTAL ════════════ -->
+<section class="batestal" id="batestal">
+  <div class="batestal__bg-img" aria-hidden="true">
+    <img src="assets/images/vista-aerea.jpg" alt="">
+  </div>
+  <div class="container">
+    <div class="batestal__grid">
+      <div>
+        <p class="section-label reveal">A Construtora</p>
+        <h2 class="batestal__title reveal d1">
+          <em>65 anos</em><br>construindo histórias
+        </h2>
+        <p class="batestal__body reveal d2">
+          Com mais de 65 anos de atuação no mercado imobiliário de Santa Catarina, a Batestal acumula mais de 150 mil m² entregues na região e uma reputação construída sobre seriedade, inovação e compromisso com os clientes.
+        </p>
+        <p class="batestal__body reveal d3">
+          O Skyview 100 é mais um capítulo dessa história — o resultado de décadas de aprendizado aplicadas em cada detalhe construtivo, para que você receba muito mais do que um imóvel: receba um lar feito para inspirar.
+        </p>
+      </div>
+      <div class="batestal__logo-side reveal d2">
+        <img src="assets/images/logo-color.png" alt="Batestal 65 Anos" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FORMULÁRIO ════════════ -->
+<section class="form-sec" id="contato">
+  <div class="form-sec__bg" aria-hidden="true">
+    <img src="assets/images/piscina.jpg" alt="">
+  </div>
+  <div class="container">
+    <div class="form-sec__inner">
+      <p class="section-label reveal">Interesse</p>
+      <h2 class="form-sec__title reveal d1">
+        Quero conhecer<br>o <em>Skyview</em>
+      </h2>
+      <p class="form-sec__sub reveal d2">
+        Preencha seus dados e um especialista entrará em contato para apresentar o empreendimento.
+      </p>
+
+      <form class="form reveal d3" id="leadForm" novalidate>
+        <div class="form__row">
+          <div class="fgroup">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name">
+          </div>
+          <div class="fgroup">
+            <label for="telefone">WhatsApp / Telefone</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required autocomplete="tel">
+          </div>
+        </div>
+        <div class="fgroup">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email">
+        </div>
+        <div class="fgroup">
+          <label for="interesse">O que te interessa?</label>
+          <select id="interesse" name="interesse">
+            <option value="" disabled selected>Selecione uma tipologia</option>
+            <option value="sky1">Sky 1 — 2 Suítes + Home Office (90 m² / 147 m²)</option>
+            <option value="sky2">Sky 2 — 2 Suítes + Lavabo (70 m² / 71 m²)</option>
+            <option value="sky3">Sky 3 — 1 Suíte + 1 Dormitório (60 m² / 98 m²)</option>
+            <option value="sky4">Sky 4 — 1 Suíte + 1 Dormitório (63 m² / 103 m²)</option>
+            <option value="sky5">Sky 5 — 1 Suíte + 1 Dormitório (63 m² / 103 m²)</option>
+            <option value="sky603">Sky 603 — Terraço Privativo (71 m² / 112 m²)</option>
+            <option value="sky604">Sky 604 — Terraço Privativo (71 m² / 113 m²)</option>
+            <option value="sky605">Sky 605 — Terraço Privativo (71 m² / 115 m²)</option>
+            <option value="informacoes">Quero conhecer todas as opções</option>
+          </select>
+        </div>
+        <button type="submit" class="form__submit" id="submitBtn">
+          Agendar Apresentação Exclusiva
+        </button>
+        <p class="form__disclaimer">
+          Ao enviar, você concorda com nossa política de privacidade.<br>Não compartilhamos seus dados com terceiros.
+        </p>
+      </form>
+
+      <div class="form__success" id="formSuccess">
+        <div class="form__success__icon">✓</div>
+        <h3 class="form__success__title">Recebemos seu interesse!</h3>
+        <p class="form__success__sub">Em breve um especialista entrará em contato pelo WhatsApp ou e-mail informado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ LIGHTBOX ════════════ -->
+<div class="lb-overlay" id="lb" role="dialog" aria-modal="true" aria-label="Visualizador de imagens">
+  <button class="lb-close" id="lbClose" aria-label="Fechar">&#x2715;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Imagem anterior">
+    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 4L6 9l5 5"/>
+    </svg>
+  </button>
+  <div class="lb-img-wrap">
+    <img id="lbImg" src="" alt="">
+  </div>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Próxima imagem">
+    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 4l5 5-5 5"/>
+    </svg>
+  </button>
+  <div class="lb-caption" id="lbCaption"></div>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <img src="assets/images/logo-branco.png" alt="Batestal">
+      </div>
+      <p class="footer__copy">© 2025 Batestal Imóveis Ltda. PROT. A0184283/F — 1° Ofício de Imóveis de Itajaí/SC</p>
+      <p class="footer__credit">Desenvolvido por <strong>Digitha</strong></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─── Scroll to top on reload ───
+  history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+  // ─── Navbar scroll solid ───
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 70);
+  }, { passive: true });
+
+  // ─── Mobile menu ───
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileLinks = mobileMenu.querySelectorAll('a');
+
+  function toggleMenu(open) {
+    burger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    mobileMenu.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  burger.addEventListener('click', () => toggleMenu(!burger.classList.contains('open')));
+  mobileLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
+
+  // ─── Scroll reveal ───
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ─── Plantas carrossel ───
+  const plantaSlides = [
+    { id: 'tab-sky1',   name: 'Sky 1' },
+    { id: 'tab-sky2',   name: 'Sky 2' },
+    { id: 'tab-sky3',   name: 'Sky 3' },
+    { id: 'tab-sky4',   name: 'Sky 4' },
+    { id: 'tab-sky5',   name: 'Sky 5' },
+    { id: 'tab-sky603', name: 'Sky 603' },
+    { id: 'tab-sky604', name: 'Sky 604' },
+    { id: 'tab-sky605', name: 'Sky 605' },
+    { id: 'tab-lazer',  name: 'Pav. Lazer' },
+    { id: 'tab-terreo', name: 'Pav. Térreo' },
+  ];
+  let plantaIdx = 0;
+
+  const plantaCounter = document.getElementById('plantaCounter');
+  const plantaName    = document.getElementById('plantaName');
+  const plantaDots    = document.getElementById('plantaDots');
+  const plantaPrev    = document.getElementById('plantaPrev');
+  const plantaNext    = document.getElementById('plantaNext');
+
+  // Build dots
+  plantaSlides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'planta-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goToPlanta(i));
+    plantaDots.appendChild(dot);
+  });
+
+  function goToPlanta(idx) {
+    document.getElementById(plantaSlides[plantaIdx].id)?.classList.remove('active');
+    plantaDots.children[plantaIdx]?.classList.remove('active');
+    plantaIdx = (idx + plantaSlides.length) % plantaSlides.length;
+    const panel = document.getElementById(plantaSlides[plantaIdx].id);
+    if (panel) {
+      panel.classList.add('active');
+      panel.querySelectorAll('.reveal').forEach(el => {
+        el.classList.remove('in');
+        requestAnimationFrame(() => revealObs.observe(el));
+      });
+    }
+    plantaDots.children[plantaIdx]?.classList.add('active');
+    plantaCounter.textContent = `${plantaIdx + 1} / ${plantaSlides.length}`;
+    plantaName.textContent = plantaSlides[plantaIdx].name;
+  }
+
+  plantaPrev.addEventListener('click', () => goToPlanta(plantaIdx - 1));
+  plantaNext.addEventListener('click', () => goToPlanta(plantaIdx + 1));
+
+  // Teclado — só quando a seção está visível no viewport
+  document.addEventListener('keydown', e => {
+    if (!plantaSection) return;
+    const rect = plantaSection.getBoundingClientRect();
+    const visible = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!visible) return;
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); goToPlanta(plantaIdx - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); goToPlanta(plantaIdx + 1); }
+  });
+
+  // Touch swipe on plantas
+  let plantaTouchX = 0;
+  const plantaSection = document.getElementById('plantas');
+  plantaSection?.addEventListener('touchstart', e => { plantaTouchX = e.touches[0].clientX; }, { passive: true });
+  plantaSection?.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - plantaTouchX;
+    if (Math.abs(dx) > 40) goToPlanta(plantaIdx + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  // ─── Slider ───
+  const track = document.getElementById('sliderTrack');
+  const slideGap = 16;
+  const getSlideW = () => (track.querySelector('.slide')?.offsetWidth ?? 0) + slideGap;
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    track.scrollBy({ left: -getSlideW(), behavior: 'smooth' });
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    track.scrollBy({ left: getSlideW(), behavior: 'smooth' });
+  });
+
+  let isDragging = false, dragStartX = 0, dragScrollLeft = 0;
+  track.addEventListener('mousedown', e => {
+    isDragging = true;
+    track.classList.add('grabbing');
+    dragStartX = e.pageX - track.offsetLeft;
+    dragScrollLeft = track.scrollLeft;
+  });
+  window.addEventListener('mouseup', () => { isDragging = false; track.classList.remove('grabbing'); });
+  track.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    e.preventDefault();
+    track.scrollLeft = dragScrollLeft - (e.pageX - track.offsetLeft - dragStartX);
+  });
+
+  // ─── Lightbox ───
+  const lb        = document.getElementById('lb');
+  const lbImg     = document.getElementById('lbImg');
+  const lbCaption = document.getElementById('lbCaption');
+  const lbCounter = document.getElementById('lbCounter');
+  let lbItems = [], lbIndex = 0;
+
+  function lbOpen(group, startIndex) {
+    lbItems = [...document.querySelectorAll(`[data-lb="${group}"]`)].map(el => ({
+      src:     el.dataset.lbSrc,
+      caption: el.dataset.lbCaption || ''
+    }));
+    lbIndex = startIndex;
+    lbShow();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function lbClose() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { lbImg.src = ''; }, 300);
+  }
+
+  function lbShow() {
+    const item = lbItems[lbIndex];
+    lbImg.classList.add('switching');
+    setTimeout(() => {
+      lbImg.src = item.src;
+      lbImg.alt = item.caption;
+      lbCaption.textContent = item.caption;
+      lbCounter.textContent = `${lbIndex + 1} / ${lbItems.length}`;
+      lbImg.classList.remove('switching');
+    }, 200);
+  }
+
+  function lbPrev() { lbIndex = (lbIndex - 1 + lbItems.length) % lbItems.length; lbShow(); }
+  function lbNext() { lbIndex = (lbIndex + 1) % lbItems.length; lbShow(); }
+
+  document.getElementById('lbClose').addEventListener('click', lbClose);
+  document.getElementById('lbPrev').addEventListener('click', lbPrev);
+  document.getElementById('lbNext').addEventListener('click', lbNext);
+
+  lb.addEventListener('click', e => { if (e.target === lb) lbClose(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     lbClose();
+    if (e.key === 'ArrowLeft')  lbPrev();
+    if (e.key === 'ArrowRight') lbNext();
+  });
+
+  // Touch swipe in lightbox
+  let lbTouchX = 0;
+  lb.addEventListener('touchstart', e => { lbTouchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    const diff = lbTouchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? lbNext() : lbPrev();
+  });
+
+  // Wire up all [data-lb] elements
+  document.querySelectorAll('[data-lb]').forEach((el, _, all) => {
+    el.addEventListener('click', () => {
+      const group = el.dataset.lb;
+      const groupItems = [...document.querySelectorAll(`[data-lb="${group}"]`)];
+      lbOpen(group, groupItems.indexOf(el));
+    });
+  });
+
+  // ─── Phone mask ───
+  const phoneInput = document.getElementById('telefone');
+  phoneInput.addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 7)      v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+    else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    e.target.value = v;
+  });
+
+  // ─── Form submit ───
+  document.getElementById('leadForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = document.getElementById('submitBtn');
+    const nome = form.nome.value.trim();
+    const tel  = form.telefone.value.replace(/\D/g, '');
+    const mail = form.email.value.trim();
+
+    if (!nome || tel.length < 10 || !mail.includes('@')) {
+      btn.textContent = 'Preencha todos os campos';
+      btn.style.background = 'oklch(55% 0.12 28)';
+      setTimeout(() => { btn.textContent = 'Quero Receber Informações'; btn.style.background = ''; }, 2500);
+      return;
+    }
+
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    // Substituir com webhook/CRM real
+    setTimeout(() => {
+      form.style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+    }, 1200);
+  });
+</script>
+</body>
+</html>
