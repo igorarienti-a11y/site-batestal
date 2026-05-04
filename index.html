@@ -2035,7 +2035,7 @@
     const panel = document.getElementById(plantaSlides[plantaIdx].id);
     if (panel) {
       panel.classList.add('active');
-      panel.querySelectorAll('.reveal').forEach(el => {
+      panel.querySelectorAll('.reveal, .reveal-img').forEach(el => {
         el.classList.remove('in');
         requestAnimationFrame(() => revealObs.observe(el));
       });
@@ -2044,6 +2044,23 @@
     plantaCounter.textContent = `${plantaIdx + 1} / ${plantaSlides.length}`;
     plantaName.textContent = plantaSlides[plantaIdx].name;
   }
+
+  // Preload todas as imagens de plantas quando a seção está 800px abaixo
+  const plantaImgs = [...document.querySelectorAll('.tab-panel img')];
+  const plantaPreloadObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      plantaImgs.forEach(img => {
+        if (!img.complete) {
+          img.loading = 'eager';
+          const pre = new Image();
+          pre.src = img.src;
+        }
+      });
+      plantaPreloadObs.disconnect();
+    }
+  }, { rootMargin: '0px 0px 800px 0px' });
+  const plantasSecEl = document.querySelector('.plantas');
+  if (plantasSecEl) plantaPreloadObs.observe(plantasSecEl);
 
   plantaPrev.addEventListener('click', () => goToPlanta(plantaIdx - 1));
   plantaNext.addEventListener('click', () => goToPlanta(plantaIdx + 1));
