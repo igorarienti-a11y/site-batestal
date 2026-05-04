@@ -248,6 +248,14 @@
       object-fit: cover;
       object-position: center 30%;
     }
+    .hero__img-mobile {
+      display: none;
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
     .hero__overlay {
       position: absolute;
       inset: 0;
@@ -1195,6 +1203,19 @@
     }
 
     @media (max-width: 600px) {
+      /* Vídeo → imagem na hero */
+      .hero__video     { display: none; }
+      .hero__img-mobile { display: block; }
+
+      /* Animações mais rápidas no mobile */
+      .reveal { transition-duration: 0.45s; }
+      .d1 { transition-delay: 0.05s; }
+      .d2 { transition-delay: 0.1s; }
+      .d3 { transition-delay: 0.15s; }
+      .d4 { transition-delay: 0.2s; }
+      /* Desativa will-change em móvel para economizar GPU */
+      .reveal { will-change: auto; }
+
       .form__row { grid-template-columns: 1fr; }
 
       .areas__mosaic {
@@ -1297,6 +1318,7 @@
   <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/images/fachada-noturna.jpg">
     <source src="assets/video/skyview-video.mp4" type="video/mp4">
   </video>
+  <img class="hero__img-mobile" src="assets/images/fachada-noturna.jpg" alt="" aria-hidden="true" fetchpriority="high">
   <div class="hero__overlay" aria-hidden="true"></div>
 
   <div class="container hero__content">
@@ -1903,6 +1925,12 @@
   // ─── Scroll to top on reload ───
   history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
+
+  // ─── Mobile: pausa o vídeo da hero para economizar banda ───
+  if (window.innerWidth <= 600) {
+    const heroVideo = document.querySelector('.hero__video');
+    if (heroVideo) { heroVideo.pause(); heroVideo.removeAttribute('src'); heroVideo.load(); }
+  }
 
   // ─── Navbar scroll solid ───
   const nav = document.getElementById('nav');
