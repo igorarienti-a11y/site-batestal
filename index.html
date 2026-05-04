@@ -1235,9 +1235,28 @@
       .lb-counter { font-size: 11px; }
     }
 
-@media (max-width: 400px) {
+    @media (max-width: 400px) {
       .hero__title { font-size: 52px; }
       .stats__grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── 1366px — escala proporcional a 80% zoom no Full HD ── */
+    @media (max-width: 1499px) and (min-width: 861px) {
+      :root {
+        --sp-3xl: 100px;
+        --sp-2xl: 64px;
+        --sp-xl:  40px;
+      }
+      .hero__title      { font-size: clamp(60px, 11vw, 150px); }
+      .sobre__headline  { font-size: clamp(28px, 3.5vw, 46px); }
+      .areas__title,
+      .interiores__title,
+      .plantas__title,
+      .video-sec__title,
+      .batestal__title,
+      .loc__title       { font-size: clamp(26px, 3.2vw, 44px); }
+      .form-sec__title  { font-size: clamp(32px, 4vw, 54px); }
+      .stat__num        { font-size: clamp(36px, 4.5vw, 56px); }
     }
   </style>
 </head>
