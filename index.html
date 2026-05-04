@@ -1411,7 +1411,7 @@
       </div>
 
       <div class="sobre__img-wrap reveal-img d2">
-        <img src="assets/images/fachada-noturna.jpg" alt="Skyview — Fachada Noturna" loading="lazy">
+        <img src="assets/images/fachada-noturna.jpg" alt="Skyview — Fachada Noturna" loading="eager" fetchpriority="high">
         <div class="sobre__badge">
           <strong>65</strong>
           <span>Anos Batestal</span>
@@ -1460,7 +1460,7 @@
     <!-- Mosaic principal -->
     <div class="areas__mosaic">
       <div class="area-tile reveal-img" data-lb="areas" data-lb-src="assets/images/piscina.jpg" data-lb-caption="Piscina">
-        <img src="assets/images/piscina.jpg" alt="Piscina" loading="lazy">
+        <img src="assets/images/piscina.jpg" alt="Piscina" loading="eager">
         <div class="area-tile__grad"></div>
         <div class="area-tile__label">
           <div class="area-tile__name">Piscina</div>
@@ -1468,7 +1468,7 @@
         </div>
       </div>
       <div class="area-tile reveal-img" data-lb="areas" data-lb-src="assets/images/hall.jpg" data-lb-caption="Hall de Entrada">
-        <img src="assets/images/hall.jpg" alt="Hall de Entrada" loading="lazy">
+        <img src="assets/images/hall.jpg" alt="Hall de Entrada" loading="eager">
         <div class="area-tile__grad"></div>
         <div class="area-tile__label">
           <div class="area-tile__name">Hall de Entrada</div>
@@ -1476,7 +1476,7 @@
         </div>
       </div>
       <div class="area-tile reveal-img" data-lb="areas" data-lb-src="assets/images/gourmet.jpg" data-lb-caption="Espaço Gourmet">
-        <img src="assets/images/gourmet.jpg" alt="Espaço Gourmet" loading="lazy">
+        <img src="assets/images/gourmet.jpg" alt="Espaço Gourmet" loading="eager">
         <div class="area-tile__grad"></div>
         <div class="area-tile__label">
           <div class="area-tile__name">Espaço Gourmet</div>
@@ -1484,7 +1484,7 @@
         </div>
       </div>
       <div class="area-tile reveal-img" data-lb="areas" data-lb-src="assets/images/academia.jpg" data-lb-caption="Academia">
-        <img src="assets/images/academia.jpg" alt="Academia" loading="lazy">
+        <img src="assets/images/academia.jpg" alt="Academia" loading="eager">
         <div class="area-tile__grad"></div>
         <div class="area-tile__label">
           <div class="area-tile__name">Academia</div>
@@ -1980,14 +1980,23 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
 
   // ─── Scroll reveal ───
+  async function revealEl(el) {
+    const imgs = el.tagName === 'IMG' ? [el] : [...el.querySelectorAll('img')];
+    const pending = imgs.filter(img => !img.complete);
+    if (pending.length) {
+      await Promise.all(pending.map(img => img.decode().catch(() => {})));
+    }
+    el.classList.add('in');
+  }
+
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('in');
+        revealEl(e.target);
         revealObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('.reveal, .reveal-img').forEach(el => revealObs.observe(el));
 
   // ─── Plantas carrossel ───
