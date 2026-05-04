@@ -1496,17 +1496,17 @@
     <!-- Grid complementar -->
     <div class="areas__list">
       <div class="area-mini reveal-img" data-lb="areas" data-lb-src="assets/images/festas.jpg" data-lb-caption="Salão de Festas">
-        <img src="assets/images/festas.jpg" alt="Salão de Festas" loading="lazy">
+        <img src="assets/images/festas.jpg" alt="Salão de Festas" loading="eager">
         <div class="area-mini__grad"></div>
         <div class="area-mini__name">Salão de Festas</div>
       </div>
       <div class="area-mini reveal-img" data-lb="areas" data-lb-src="assets/images/playground.jpg" data-lb-caption="Playground">
-        <img src="assets/images/playground.jpg" alt="Playground" loading="lazy">
+        <img src="assets/images/playground.jpg" alt="Playground" loading="eager">
         <div class="area-mini__grad"></div>
         <div class="area-mini__name">Playground</div>
       </div>
       <div class="area-mini reveal-img" data-lb="areas" data-lb-src="assets/images/vaga-eletrica.jpg" data-lb-caption="Vaga Elétrica">
-        <img src="assets/images/vaga-eletrica.jpg" alt="Vaga Elétrica" loading="lazy">
+        <img src="assets/images/vaga-eletrica.jpg" alt="Vaga Elétrica" loading="eager">
         <div class="area-mini__grad"></div>
         <div class="area-mini__name">Vaga Elétrica</div>
       </div>
@@ -2044,6 +2044,17 @@
     plantaCounter.textContent = `${plantaIdx + 1} / ${plantaSlides.length}`;
     plantaName.textContent = plantaSlides[plantaIdx].name;
   }
+
+  // Preload imagens de áreas 1000px antes da seção
+  const areasImgs = [...document.querySelectorAll('.areas .area-tile img, .areas .area-mini img')];
+  const areasPreloadObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      areasImgs.forEach(img => { if (!img.complete) { const p = new Image(); p.src = img.src; } });
+      areasPreloadObs.disconnect();
+    }
+  }, { rootMargin: '0px 0px 1000px 0px' });
+  const areasSecEl = document.querySelector('.areas');
+  if (areasSecEl) areasPreloadObs.observe(areasSecEl);
 
   // Preload todas as imagens de plantas quando a seção está 800px abaixo
   const plantaImgs = [...document.querySelectorAll('.tab-panel img')];
