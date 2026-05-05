@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
 
   <style>
     /* ─── Tokens ─── */
@@ -21,6 +21,8 @@
       --gold-border:  oklch(73% 0.09 72 / 0.28);
       --text:         oklch(94% 0.006 72);
       --text-muted:   oklch(62% 0.007 72);
+      --red:          #ff0000;
+      --red-dim:      rgba(255, 0, 0, 0.15);
       --text-dim:     oklch(42% 0.005 72);
       --border:       oklch(20% 0.004 45);
 
@@ -298,6 +300,7 @@
       padding-bottom: clamp(56px, 9vh, 96px);
     }
     .hero__eyebrow {
+      font-family: 'Montserrat', sans-serif;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.22em;
@@ -307,29 +310,33 @@
       opacity: 0;
       animation: fadeUp 0.8s var(--ease) 0.1s forwards;
     }
-    .hero__title {
-      font-family: 'Gilda Display', serif;
-      font-size: clamp(76px, 14vw, 192px);
-      font-weight: 400;
-      line-height: 0.87;
-      letter-spacing: -0.025em;
-      opacity: 0;
-      animation: fadeUp 0.9s var(--ease) 0.22s forwards;
-    }
-    .hero__title em {
+    .hero__logo-sky {
       display: block;
-      font-style: italic;
+      height: clamp(200px, 33vh, 360px);
+      width: auto;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease) 0.2s forwards;
+    }
+    .hero__tagline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(13px, 1.2vw, 17px);
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
       color: var(--gold);
+      margin-top: var(--sp-lg);
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 0.38s forwards;
     }
     .hero__sub {
       font-size: clamp(15px, 1.5vw, 18px);
       font-weight: 300;
       color: var(--text-muted);
-      max-width: 460px;
+      max-width: 480px;
       margin-top: var(--sp-lg);
       line-height: 1.7;
       opacity: 0;
-      animation: fadeUp 0.8s var(--ease) 0.4s forwards;
+      animation: fadeUp 0.8s var(--ease) 0.5s forwards;
     }
     .hero__actions {
       display: flex;
@@ -373,7 +380,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--gold);
+      background: var(--red);
       animation: scrollDown 2.2s linear infinite;
       will-change: top;
     }
@@ -409,6 +416,15 @@
       background: var(--bg-2);
       padding: var(--sp-xl) var(--sp-lg);
       text-align: center;
+    }
+    .stat__num::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      background: var(--red);
+      border-radius: 50%;
+      margin: 0 auto var(--sp-sm);
     }
     .stat__num {
       font-family: 'Gilda Display', serif;
@@ -450,7 +466,7 @@
     .sobre__divider {
       width: 48px;
       height: 1px;
-      background: var(--gold-border);
+      background: var(--red);
       margin-bottom: var(--sp-xl);
     }
     .sobre__body {
@@ -576,6 +592,14 @@
       inset: 0;
       background: linear-gradient(to top, oklch(6% 0.006 45 / 0.88) 0%, transparent 55%);
     }
+    .area-tile__label::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: var(--red);
+      margin-bottom: 10px;
+    }
     .area-tile__label {
       position: absolute;
       bottom: var(--sp-lg);
@@ -690,6 +714,15 @@
     }
     .slider__btn:hover { background: var(--gold-dim); }
     .slider__btn svg { width: 15px; height: 15px; }
+    .slider__counter {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      min-width: 48px;
+      text-align: center;
+    }
 
     /* ═══════════════════════════════════════
        PLANTAS
@@ -762,7 +795,7 @@
       flex-shrink: 0;
     }
     .planta-dot.active {
-      background: var(--gold);
+      background: var(--red);
       width: 22px;
       border-radius: 3px;
     }
@@ -827,7 +860,7 @@
       flex-shrink: 0;
       width: 14px;
       height: 1px;
-      background: var(--gold);
+      background: var(--red);
       margin-top: 10px;
     }
     .planta-desc__cta { margin-top: var(--sp-xl); }
@@ -852,14 +885,12 @@
       line-height: 1.1;
       margin: var(--sp-md) 0 var(--sp-xl);
     }
-    .loc__address {
-      font-size: 17px;
+    .loc__title-sub {
+      font-size: 0.55em;
       font-weight: 300;
       color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: var(--sp-xl);
+      letter-spacing: 0.01em;
     }
-    .loc__address strong { font-weight: 400; color: var(--text); }
     .loc__points {
       display: flex;
       flex-direction: column;
@@ -874,7 +905,7 @@
     }
     .loc-pt__dot {
       width: 6px; height: 6px;
-      background: var(--gold);
+      background: var(--red);
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -1201,6 +1232,7 @@
       }
 
       .nav__links { display: none; }
+      .nav__cta   { display: none; }
       .nav__burger { display: flex; }
 
       .sobre__grid    { grid-template-columns: 1fr; }
@@ -1251,7 +1283,10 @@
       .stats__grid { grid-template-columns: 1fr 1fr; }
       .stat { padding: var(--sp-lg) var(--sp-md); }
 
-      .hero__title { font-size: clamp(58px, 18vw, 100px); }
+      .hero__logo-sky { height: clamp(110px, 28vw, 180px); }
+      .hero__actions { flex-direction: column; align-items: flex-start; gap: var(--sp-md); }
+      .hero__sub { font-size: 15px; max-width: 90%; }
+      .hero__tagline { font-size: 13px; letter-spacing: 0.22em; }
       .hero__actions { flex-direction: column; align-items: flex-start; gap: var(--sp-md); }
       .hero__sub { font-size: 15px; max-width: 90%; }
 
@@ -1281,7 +1316,7 @@
     }
 
     @media (max-width: 400px) {
-      .hero__title { font-size: 52px; }
+      .hero__logo-sky { height: 100px; }
       .stats__grid { grid-template-columns: 1fr 1fr; }
     }
 
@@ -1292,7 +1327,7 @@
         --sp-2xl: 64px;
         --sp-xl:  40px;
       }
-      .hero__title      { font-size: clamp(60px, 11vw, 150px); }
+      .hero__logo-sky { height: clamp(140px, 22vh, 240px); }
       .sobre__headline  { font-size: clamp(28px, 3.5vw, 46px); }
       .areas__title,
       .interiores__title,
@@ -1346,12 +1381,11 @@
   <div class="hero__overlay" aria-hidden="true"></div>
 
   <div class="container hero__content">
-    <p class="hero__eyebrow">Batestal — Inspirado em Você</p>
-    <h1 class="hero__title">
-      Sky<em>view</em>
-    </h1>
+    <p class="hero__eyebrow">Batestal</p>
+    <img class="hero__logo-sky" src="assets/images/logo-skyview.png" alt="Skyview" fetchpriority="high">
+    <p class="hero__tagline">Inspirado em você</p>
     <p class="hero__sub">
-      No Centro de Itajaí, um lançamento que redefine o padrão. Conforto, tecnologia e lazer completo — tudo em um único endereço.
+      No Centro de Itajaí, um lançamento que redefine o padrão de morar ou investir com segurança, mobilidade, proximidade de serviços de excelência e lazer total.
     </p>
     <div class="hero__actions">
       <a href="#contato" class="btn-gold">Agendar Apresentação</a>
@@ -1396,14 +1430,14 @@
       <div>
         <p class="section-label reveal">O Empreendimento</p>
         <h2 class="sobre__headline reveal d1">
-          Onde cada <em>detalhe</em><br>define um padrão
+          Você no <em>centro</em><br>de tudo
         </h2>
         <div class="sobre__divider reveal d2"></div>
         <p class="sobre__body reveal d2">
-          No coração do Centro de Itajaí, o Skyview 100 foi projetado para quem escolhe viver com excelência. Conforto, segurança e funcionalidade em cada detalhe — dos acabamentos premium às tecnologias de automação e sustentabilidade.
+          O Skyview 100 encontra-se junto da Unisul, do Colégio Adventista e do Angeloni, e a menos de 500 metros da Univali.
         </p>
         <p class="sobre__body reveal d3">
-          Com 5 tipologias exclusivas e um pavimento Sky Garden com terraços privativos, o empreendimento oferece a flexibilidade ideal para diferentes estilos de vida — tudo isso com a solidez de uma construtora com 65 anos e mais de 150 mil m² entregues.
+          Próximo da Unimed, do Hospital Marieta, do Fórum e da Marina de Itajaí, o empreendimento assegura acesso fácil a shoppings, restaurantes e às melhores opções de entretenimento e cultura.
         </p>
         <div class="sobre__cta reveal d4">
           <a href="#contato" class="btn-gold">Agendar Apresentação</a>
@@ -1412,6 +1446,32 @@
 
       <div class="sobre__img-wrap reveal-img d2">
         <img src="assets/images/fachada-noturna.jpg" alt="Skyview — Fachada Noturna" loading="eager" fetchpriority="high">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ BATESTAL ════════════ -->
+<section class="batestal" id="batestal">
+  <div class="batestal__bg-img" aria-hidden="true">
+    <img src="assets/images/vista-aerea.jpg" alt="">
+  </div>
+  <div class="container">
+    <div class="batestal__grid">
+      <div>
+        <p class="section-label reveal">A Construtora</p>
+        <h2 class="batestal__title reveal d1">
+          Construindo seu presente.<br>Há mais de <em>65 anos</em>.
+        </h2>
+        <p class="batestal__body reveal d2">
+          Com mais de 65 anos de atuação no mercado imobiliário de Santa Catarina, a Batestal acumula mais de 150 mil m² entregues na região e uma reputação construída sobre seriedade, inovação e compromisso com os clientes.
+        </p>
+        <p class="batestal__body reveal d3">
+          O Skyview 100 é mais um capítulo dessa história — o resultado de décadas de aprendizado aplicadas em cada detalhe construtivo, para que você receba muito mais do que um imóvel: receba um lar feito para inspirar.
+        </p>
+      </div>
+      <div class="batestal__logo-side reveal d2">
+        <img src="assets/images/logo-color.png" alt="Batestal 65 Anos" loading="lazy">
       </div>
     </div>
   </div>
@@ -1437,7 +1497,6 @@
         Seu navegador não suporta a reprodução de vídeo.
       </video>
     </div>
-  </div>
   </div>
 </section>
 
@@ -1544,6 +1603,7 @@
         <path d="M10 3L5 8l5 5"/>
       </svg>
     </button>
+    <span class="slider__counter" id="sliderCounter">01 / 04</span>
     <button class="slider__btn" id="nextBtn" aria-label="Próxima imagem">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 3l5 5-5 5"/>
@@ -1794,17 +1854,16 @@
     <div class="loc__grid">
       <div>
         <p class="section-label reveal">Localização</p>
-        <h2 class="loc__title reveal d1">No coração<br>da cidade</h2>
-        <p class="loc__address reveal d2">
-          <strong>Rua Uruguai, 100</strong><br>
-          Centro — Itajaí / SC
-        </p>
-        <div class="loc__points reveal d3">
-          <div class="loc-pt"><div class="loc-pt__dot"></div>Maior PIB de Santa Catarina</div>
-          <div class="loc-pt"><div class="loc-pt__dot"></div>Região livre de riscos de enchentes</div>
-          <div class="loc-pt"><div class="loc-pt__dot"></div>Shoppings, restaurantes e cultura a pé</div>
-          <div class="loc-pt"><div class="loc-pt__dot"></div>Mobilidade urbana e serviço público eficiente</div>
-          <div class="loc-pt"><div class="loc-pt__dot"></div>Cidade líder em crescimento e valorização</div>
+        <h2 class="loc__title reveal d1">Rua Uruguai, 100<br><span class="loc__title-sub">Centro de Itajaí / SC</span></h2>
+        <div class="loc__points reveal d2">
+          <div class="loc-pt"><div class="loc-pt__dot"></div>1,8 km da marina e do novo shopping de Itajaí</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>5 km da Praia Brava</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>7 km do Aeroporto Internacional</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>10 km de Balneário Camboriú</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>25 km de Itapema</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>25 km de Beto Carrero World</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>95 km de Florianópolis</div>
+          <div class="loc-pt"><div class="loc-pt__dot"></div>Região protegida de riscos de inundações</div>
         </div>
       </div>
       <div class="map-box reveal d2">
@@ -1815,32 +1874,6 @@
           referrerpolicy="no-referrer-when-downgrade"
           title="Localização Skyview 100 — Rua Uruguai, 100, Centro, Itajaí/SC"
         ></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════ BATESTAL ════════════ -->
-<section class="batestal" id="batestal">
-  <div class="batestal__bg-img" aria-hidden="true">
-    <img src="assets/images/vista-aerea.jpg" alt="">
-  </div>
-  <div class="container">
-    <div class="batestal__grid">
-      <div>
-        <p class="section-label reveal">A Construtora</p>
-        <h2 class="batestal__title reveal d1">
-          <em>65 anos</em><br>construindo histórias
-        </h2>
-        <p class="batestal__body reveal d2">
-          Com mais de 65 anos de atuação no mercado imobiliário de Santa Catarina, a Batestal acumula mais de 150 mil m² entregues na região e uma reputação construída sobre seriedade, inovação e compromisso com os clientes.
-        </p>
-        <p class="batestal__body reveal d3">
-          O Skyview 100 é mais um capítulo dessa história — o resultado de décadas de aprendizado aplicadas em cada detalhe construtivo, para que você receba muito mais do que um imóvel: receba um lar feito para inspirar.
-        </p>
-      </div>
-      <div class="batestal__logo-side reveal d2">
-        <img src="assets/images/logo-color.png" alt="Batestal 65 Anos" loading="lazy">
       </div>
     </div>
   </div>
@@ -1878,7 +1911,7 @@
         </div>
         <div class="fgroup">
           <label for="interesse">O que te interessa?</label>
-          <select id="interesse" name="interesse">
+          <select id="interesse" name="interesse" required>
             <option value="" disabled selected>Selecione uma tipologia</option>
             <option value="sky1">Sky 1 — 2 Suítes + Home Office (90 m² / 147 m²)</option>
             <option value="sky2">Sky 2 — 2 Suítes + Lavabo (70 m² / 71 m²)</option>
@@ -2076,6 +2109,21 @@
   plantaPrev.addEventListener('click', () => goToPlanta(plantaIdx - 1));
   plantaNext.addEventListener('click', () => goToPlanta(plantaIdx + 1));
 
+  // Touch swipe on plantas — only fires on clear horizontal swipe (not vertical scroll or tap)
+  let plantaTouchX = 0, plantaTouchY = 0;
+  const plantaSection = document.getElementById('plantas');
+  plantaSection?.addEventListener('touchstart', e => {
+    plantaTouchX = e.touches[0].clientX;
+    plantaTouchY = e.touches[0].clientY;
+  }, { passive: true });
+  plantaSection?.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - plantaTouchX;
+    const dy = e.changedTouches[0].clientY - plantaTouchY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      goToPlanta(plantaIdx + (dx < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
   // Teclado — só quando a seção está visível no viewport
   document.addEventListener('keydown', e => {
     if (!plantaSection) return;
@@ -2086,19 +2134,21 @@
     if (e.key === 'ArrowRight') { e.preventDefault(); goToPlanta(plantaIdx + 1); }
   });
 
-  // Touch swipe on plantas
-  let plantaTouchX = 0;
-  const plantaSection = document.getElementById('plantas');
-  plantaSection?.addEventListener('touchstart', e => { plantaTouchX = e.touches[0].clientX; }, { passive: true });
-  plantaSection?.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - plantaTouchX;
-    if (Math.abs(dx) > 40) goToPlanta(plantaIdx + (dx < 0 ? 1 : -1));
-  }, { passive: true });
-
   // ─── Slider ───
   const track = document.getElementById('sliderTrack');
   const slideGap = 16;
   const getSlideW = () => (track.querySelector('.slide')?.offsetWidth ?? 0) + slideGap;
+  const sliderCounter = document.getElementById('sliderCounter');
+  const totalSlides = track.querySelectorAll('.slide').length;
+
+  const updateCounter = () => {
+    const idx = Math.round(track.scrollLeft / getSlideW()) + 1;
+    const cur = String(Math.min(idx, totalSlides)).padStart(2, '0');
+    const tot = String(totalSlides).padStart(2, '0');
+    sliderCounter.textContent = `${cur} / ${tot}`;
+  };
+
+  track.addEventListener('scroll', updateCounter, { passive: true });
 
   document.getElementById('prevBtn').addEventListener('click', () => {
     track.scrollBy({ left: -getSlideW(), behavior: 'smooth' });
@@ -2107,9 +2157,10 @@
     track.scrollBy({ left: getSlideW(), behavior: 'smooth' });
   });
 
-  let isDragging = false, dragStartX = 0, dragScrollLeft = 0;
+  let isDragging = false, dragStartX = 0, dragScrollLeft = 0, sliderDidDrag = false;
   track.addEventListener('mousedown', e => {
     isDragging = true;
+    sliderDidDrag = false;
     track.classList.add('grabbing');
     dragStartX = e.pageX - track.offsetLeft;
     dragScrollLeft = track.scrollLeft;
@@ -2118,8 +2169,13 @@
   track.addEventListener('mousemove', e => {
     if (!isDragging) return;
     e.preventDefault();
+    sliderDidDrag = true;
     track.scrollLeft = dragScrollLeft - (e.pageX - track.offsetLeft - dragStartX);
   });
+  // Prevent lightbox from opening if the user was dragging
+  track.addEventListener('click', e => {
+    if (sliderDidDrag) { e.stopPropagation(); sliderDidDrag = false; }
+  }, true);
 
   // ─── Lightbox ───
   const lb        = document.getElementById('lb');
@@ -2210,8 +2266,8 @@
 
     if (!nome || tel.length < 10 || !mail.includes('@')) {
       btn.textContent = 'Preencha todos os campos';
-      btn.style.background = 'oklch(55% 0.12 28)';
-      setTimeout(() => { btn.textContent = 'Quero Receber Informações'; btn.style.background = ''; }, 2500);
+      btn.style.background = '#ff0000';
+      setTimeout(() => { btn.textContent = 'Agendar Apresentação Exclusiva'; btn.style.background = ''; }, 2500);
       return;
     }
 
