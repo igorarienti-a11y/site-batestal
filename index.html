@@ -21,8 +21,8 @@
       --gold-border:  oklch(73% 0.09 72 / 0.28);
       --text:         oklch(94% 0.006 72);
       --text-muted:   oklch(62% 0.007 72);
-      --red:          #ff0000;
-      --red-dim:      rgba(255, 0, 0, 0.15);
+      --red:          oklch(73% 0.09 72);
+      --red-dim:      oklch(73% 0.09 72 / 0.12);
       --text-dim:     oklch(42% 0.005 72);
       --border:       oklch(20% 0.004 45);
 
@@ -1917,7 +1917,7 @@
         </p>
       </div>
       <div class="batestal__logo-side reveal d2">
-        <img src="assets/images/logo-color.png" alt="Batestal 65 Anos" loading="lazy">
+        <img src="assets/images/logo-branco.png" alt="Batestal 65 Anos" loading="lazy">
       </div>
     </div>
   </div>
@@ -2333,7 +2333,7 @@
 
     if (!nome || tel.length < 10 || !mail.includes('@')) {
       btn.textContent = 'Preencha todos os campos';
-      btn.style.background = '#ff0000';
+      btn.style.background = 'oklch(73% 0.09 72)';
       setTimeout(() => { btn.textContent = 'Agendar Apresentação Exclusiva'; btn.style.background = ''; }, 2500);
       return;
     }
