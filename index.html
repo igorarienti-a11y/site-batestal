@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
 
   <style>
     /* ─── Tokens ─── */
@@ -43,7 +43,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Jost', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 300;
       line-height: 1.7;
       overflow-x: hidden;
@@ -119,7 +119,6 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-muted);
-      border-bottom: 1px solid var(--text-dim);
       padding-bottom: 3px;
       transition: color 0.2s, border-color 0.2s;
     }
@@ -231,7 +230,7 @@
       .nav__mobile-menu { display: flex; }
     }
     .nav__mobile-menu a {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(28px, 7vw, 42px);
       font-weight: 400;
       color: var(--text-muted);
@@ -240,7 +239,7 @@
     .nav__mobile-menu a:hover { color: var(--text); }
     .nav__mobile-menu .nav__mobile-cta {
       margin-top: var(--sp-lg);
-      font-family: 'Jost', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.13em;
@@ -259,7 +258,7 @@
       min-height: 640px;
       overflow: hidden;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
     }
     .hero__video {
       position: absolute;
@@ -298,6 +297,23 @@
       position: relative;
       z-index: 1;
       padding-bottom: clamp(56px, 9vh, 96px);
+    }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: clamp(32px, 5vw, 72px);
+      align-items: flex-end;
+      max-width: 860px;
+      margin-inline: auto;
+    }
+    .hero__left {
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero__right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
     .hero__eyebrow {
       font-family: 'Montserrat', sans-serif;
@@ -418,16 +434,10 @@
       text-align: center;
     }
     .stat__num::before {
-      content: '';
-      display: block;
-      width: 4px;
-      height: 4px;
-      background: var(--red);
-      border-radius: 50%;
-      margin: 0 auto var(--sp-sm);
+      display: none;
     }
     .stat__num {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(42px, 5.5vw, 68px);
       font-weight: 400;
       line-height: 1;
@@ -455,7 +465,7 @@
       align-items: center;
     }
     .sobre__headline {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(34px, 4.5vw, 58px);
       font-weight: 400;
       line-height: 1.1;
@@ -499,7 +509,7 @@
     }
     .sobre__badge strong {
       display: block;
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 32px;
       font-weight: 400;
       color: var(--gold);
@@ -525,7 +535,7 @@
       margin-bottom: var(--sp-2xl);
     }
     .video-sec__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(28px, 4vw, 52px);
       font-weight: 400;
       line-height: 1.15;
@@ -560,7 +570,7 @@
       flex-wrap: wrap;
     }
     .areas__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(28px, 4vw, 52px);
       font-weight: 400;
       line-height: 1.1;
@@ -593,12 +603,7 @@
       background: linear-gradient(to top, oklch(6% 0.006 45 / 0.88) 0%, transparent 55%);
     }
     .area-tile__label::before {
-      content: '';
-      display: block;
-      width: 16px;
-      height: 2px;
-      background: var(--red);
-      margin-bottom: 10px;
+      display: none;
     }
     .area-tile__label {
       position: absolute;
@@ -660,7 +665,7 @@
       margin-bottom: var(--sp-2xl);
     }
     .interiores__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(28px, 4vw, 52px);
       font-weight: 400;
       line-height: 1.1;
@@ -719,7 +724,7 @@
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.2em;
-      color: var(--red);
+      color: var(--text-muted);
       min-width: 48px;
       text-align: center;
     }
@@ -732,7 +737,7 @@
     }
     .plantas__head { margin-bottom: var(--sp-2xl); }
     .plantas__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(28px, 4vw, 52px);
       font-weight: 400;
       line-height: 1.1;
@@ -775,7 +780,7 @@
       color: var(--text-muted);
     }
     .planta-carousel-name {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(20px, 3vw, 28px);
       font-weight: 400;
       font-style: italic;
@@ -816,7 +821,10 @@
     }
     .planta-img {
       background: oklch(97% 0.004 72);
-      padding: clamp(20px, 4vw, 40px);
+      padding: clamp(16px, 3vw, 32px);
+      max-height: 480px;
+      display: flex;
+      align-items: center;
       outline: 1px solid oklch(73% 0.09 72 / 0.22);
       outline-offset: -1px;
       box-shadow:
@@ -833,14 +841,31 @@
       outline-offset: 8px;
       pointer-events: none;
     }
-    .planta-img img { width: 100%; display: block; }
+    .planta-img img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      max-height: 420px;
+    }
     .planta-desc__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 34px;
       font-weight: 400;
       margin-bottom: var(--sp-xl);
     }
     .planta-desc__title em { font-style: italic; color: var(--gold); }
+    .planta-logo {
+      display: block;
+      max-width: 220px;
+      height: auto;
+      margin-bottom: var(--sp-xl);
+    }
+    .planta-carousel-logo {
+      display: block;
+      height: 32px;
+      width: auto;
+    }
     .planta-features {
       list-style: none;
       display: flex;
@@ -879,7 +904,7 @@
       align-items: start;
     }
     .loc__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(28px, 3.5vw, 48px);
       font-weight: 400;
       line-height: 1.1;
@@ -952,7 +977,7 @@
       align-items: center;
     }
     .batestal__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(28px, 4vw, 52px);
       font-weight: 400;
       line-height: 1.1;
@@ -998,7 +1023,7 @@
       text-align: center;
     }
     .form-sec__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(34px, 5.5vw, 68px);
       font-weight: 400;
       line-height: 1.05;
@@ -1038,7 +1063,7 @@
       background: oklch(15% 0.005 45);
       border: 1px solid oklch(28% 0.005 45);
       color: var(--text);
-      font-family: 'Jost', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 15px;
       font-weight: 300;
       padding: 14px 16px;
@@ -1064,7 +1089,7 @@
       padding: 18px;
       background: var(--gold);
       color: var(--bg);
-      font-family: 'Jost', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.18em;
@@ -1092,7 +1117,7 @@
       margin-bottom: var(--sp-md);
     }
     .form__success__title {
-      font-family: 'Gilda Display', serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 28px;
       font-weight: 400;
       margin-bottom: var(--sp-sm);
@@ -1341,6 +1366,16 @@
   </style>
 </head>
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="remove-white" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="1 0 0 0 0
+                                           0 1 0 0 0
+                                           0 0 1 0 0
+                                          -1 -1 -1 0 3"/>
+    </filter>
+  </defs>
+</svg>
 
 <!-- ════════════ NAVBAR ════════════ -->
 <nav class="nav" id="nav">
@@ -1381,15 +1416,21 @@
   <div class="hero__overlay" aria-hidden="true"></div>
 
   <div class="container hero__content">
-    <p class="hero__eyebrow">Batestal</p>
-    <img class="hero__logo-sky" src="assets/images/logo-skyview.png" alt="Skyview" fetchpriority="high">
-    <p class="hero__tagline">Inspirado em você</p>
-    <p class="hero__sub">
-      No Centro de Itajaí, um lançamento que redefine o padrão de morar ou investir com segurança, mobilidade, proximidade de serviços de excelência e lazer total.
-    </p>
-    <div class="hero__actions">
-      <a href="#contato" class="btn-gold">Agendar Apresentação</a>
-      <a href="#sobre" class="btn-outline">Conhecer o Projeto</a>
+    <div class="hero__grid">
+      <div class="hero__left">
+        <img class="hero__logo-sky" src="assets/images/logo-skyview.png" alt="Skyview" fetchpriority="high">
+      </div>
+      <div class="hero__right">
+        <p class="hero__eyebrow">Batestal</p>
+        <p class="hero__tagline">Inspirado em você</p>
+        <p class="hero__sub">
+          No Centro de Itajaí, um lançamento que redefine o padrão de morar ou investir com segurança, mobilidade, proximidade de serviços de excelência e lazer total.
+        </p>
+        <div class="hero__actions">
+          <a href="#contato" class="btn-gold">Agendar Apresentação</a>
+          <a href="#sobre" class="btn-outline">Conhecer o Projeto</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1577,10 +1618,10 @@
     <div class="tab-panel active" id="tab-sky1" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-sky1.png" alt="Sky 1 — Planta" loading="lazy">
+          <img src="assets/images/planta1.png" alt="Sky 1 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
-          <h3 class="planta-desc__title"><em>Sky 1</em></h3>
+          <img src="assets/images/logo-sky1.png" alt="Sky 1" class="planta-logo">
           <ul class="planta-features">
             <li>2 suítes + home office / dormitório</li>
             <li>Área privativa: 90 m²</li>
@@ -1598,10 +1639,10 @@
     <div class="tab-panel" id="tab-sky2" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-sky2.png" alt="Sky 2 — Planta" loading="lazy">
+          <img src="assets/images/planta2.png" alt="Sky 2 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
-          <h3 class="planta-desc__title"><em>Sky 2</em></h3>
+          <img src="assets/images/logo-sky2.png" alt="Sky 2" class="planta-logo">
           <ul class="planta-features">
             <li>2 suítes + lavabo</li>
             <li>Área privativa: 70 m²</li>
@@ -1619,10 +1660,10 @@
     <div class="tab-panel" id="tab-sky3" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-sky3.png" alt="Sky 3 — Planta" loading="lazy">
+          <img src="assets/images/planta3.png" alt="Sky 3 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
-          <h3 class="planta-desc__title"><em>Sky 3</em></h3>
+          <img src="assets/images/logo-sky3.png" alt="Sky 3" class="planta-logo">
           <ul class="planta-features">
             <li>1 suíte + 1 dormitório</li>
             <li>Área privativa: 60 m²</li>
@@ -1640,10 +1681,10 @@
     <div class="tab-panel" id="tab-sky4" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-sky4.png" alt="Sky 4 — Planta" loading="lazy">
+          <img src="assets/images/planta4.png" alt="Sky 4 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
-          <h3 class="planta-desc__title"><em>Sky 4</em></h3>
+          <img src="assets/images/logo-sky4.png" alt="Sky 4" class="planta-logo">
           <ul class="planta-features">
             <li>1 suíte + 1 dormitório</li>
             <li>Área privativa: 63 m²</li>
@@ -1661,10 +1702,10 @@
     <div class="tab-panel" id="tab-sky5" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-sky5.png" alt="Sky 5 — Planta" loading="lazy">
+          <img src="assets/images/planta5.png" alt="Sky 5 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
-          <h3 class="planta-desc__title"><em>Sky 5</em></h3>
+          <img src="assets/images/logo-sky5.png" alt="Sky 5" class="planta-logo">
           <ul class="planta-features">
             <li>1 suíte + 1 dormitório</li>
             <li>Área privativa: 63 m²</li>
@@ -1682,10 +1723,10 @@
     <div class="tab-panel" id="tab-sky603" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-sky603.png" alt="Sky 603 — Planta" loading="lazy">
+          <img src="assets/images/planta603.png" alt="Sky 603 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
-          <h3 class="planta-desc__title"><em>Sky 603</em></h3>
+          <img src="assets/images/logo-sky603.png" alt="Sky 603" class="planta-logo">
           <ul class="planta-features">
             <li>1 suíte + 1 dormitório + terraço privativo</li>
             <li>Área privativa: 71 m²</li>
@@ -1703,10 +1744,10 @@
     <div class="tab-panel" id="tab-sky604" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-sky604.png" alt="Sky 604 — Planta" loading="lazy">
+          <img src="assets/images/planta604.png" alt="Sky 604 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
-          <h3 class="planta-desc__title"><em>Sky 604</em></h3>
+          <img src="assets/images/logo-sky604.png" alt="Sky 604" class="planta-logo">
           <ul class="planta-features">
             <li>1 suíte + 1 dormitório + terraço privativo</li>
             <li>Área privativa: 71 m²</li>
@@ -1724,10 +1765,10 @@
     <div class="tab-panel" id="tab-sky605" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-sky605.png" alt="Sky 605 — Planta" loading="lazy">
+          <img src="assets/images/planta605.png" alt="Sky 605 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
-          <h3 class="planta-desc__title"><em>Sky 605</em></h3>
+          <img src="assets/images/logo-sky605.png" alt="Sky 605" class="planta-logo">
           <ul class="planta-features">
             <li>1 suíte + 1 dormitório + terraço privativo</li>
             <li>Área privativa: 71 m²</li>
@@ -1745,7 +1786,7 @@
     <div class="tab-panel" id="tab-lazer" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-lazer.png" alt="Pavimento Lazer — Skyview" loading="lazy">
+          <img src="assets/images/skygardenplantas.png" alt="Pavimento Lazer — Skyview" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <h3 class="planta-desc__title">Pavimento <em>Lazer</em></h3>
@@ -1789,7 +1830,7 @@
       </button>
       <div class="planta-carousel-info">
         <span class="planta-carousel-counter" id="plantaCounter">1 / 10</span>
-        <span class="planta-carousel-name" id="plantaName">Sky 1</span>
+        <span id="plantaName" style="display:none"></span>
         <div class="planta-dots" id="plantaDots"></div>
       </div>
       <button class="planta-arrow" id="plantaNext" aria-label="Próxima planta">
@@ -2034,16 +2075,16 @@
 
   // ─── Plantas carrossel ───
   const plantaSlides = [
-    { id: 'tab-sky1',   name: 'Sky 1' },
-    { id: 'tab-sky2',   name: 'Sky 2' },
-    { id: 'tab-sky3',   name: 'Sky 3' },
-    { id: 'tab-sky4',   name: 'Sky 4' },
-    { id: 'tab-sky5',   name: 'Sky 5' },
-    { id: 'tab-sky603', name: 'Sky 603' },
-    { id: 'tab-sky604', name: 'Sky 604' },
-    { id: 'tab-sky605', name: 'Sky 605' },
-    { id: 'tab-lazer',  name: 'Pav. Lazer' },
-    { id: 'tab-terreo', name: 'Pav. Térreo' },
+    { id: 'tab-sky1',   logo: 'assets/images/logo-sky1.png',   name: 'Sky 1' },
+    { id: 'tab-sky2',   logo: 'assets/images/logo-sky2.png',   name: 'Sky 2' },
+    { id: 'tab-sky3',   logo: 'assets/images/logo-sky3.png',   name: 'Sky 3' },
+    { id: 'tab-sky4',   logo: 'assets/images/logo-sky4.png',   name: 'Sky 4' },
+    { id: 'tab-sky5',   logo: 'assets/images/logo-sky5.png',   name: 'Sky 5' },
+    { id: 'tab-sky603', logo: 'assets/images/logo-sky603.png', name: 'Sky 603' },
+    { id: 'tab-sky604', logo: 'assets/images/logo-sky604.png', name: 'Sky 604' },
+    { id: 'tab-sky605', logo: 'assets/images/logo-sky605.png', name: 'Sky 605' },
+    { id: 'tab-lazer',  logo: null, name: 'Pav. Lazer' },
+    { id: 'tab-terreo', logo: null, name: 'Pav. Térreo' },
   ];
   let plantaIdx = 0;
 
