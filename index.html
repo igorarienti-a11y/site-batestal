@@ -1326,8 +1326,8 @@
       }
       .hero__left { justify-content: center; }
       .hero__right { align-items: center; }
-      .hero__logo-sky { height: clamp(100px, 24vw, 160px); }
-      .hero__eyebrow { text-align: center; }
+      .hero__logo-sky { height: clamp(160px, 38vw, 220px); }
+      .hero__eyebrow { display: none; }
       .hero__tagline { font-size: 13px; letter-spacing: 0.22em; text-align: center; }
       .hero__sub { font-size: 15px; max-width: 90%; text-align: center; }
       .hero__actions { flex-direction: column; align-items: center; gap: var(--sp-md); }
@@ -1366,7 +1366,7 @@
     }
 
     @media (max-width: 400px) {
-      .hero__logo-sky { height: 90px; }
+      .hero__logo-sky { height: 140px; }
       .stats__grid { grid-template-columns: 1fr 1fr; }
       .stat__num { font-size: clamp(36px, 12vw, 56px); }
     }
@@ -1646,7 +1646,7 @@
     <div class="tab-panel active" id="tab-sky1" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta1.png" alt="Sky 1 — Planta" loading="lazy">
+          <img src="assets/images/planta1.webp" alt="Sky 1 — Planta" loading="eager">
         </div>
         <div class="planta-desc reveal d2">
           <img src="assets/images/logo-sky1.png" alt="Sky 1" class="planta-logo">
@@ -1667,7 +1667,7 @@
     <div class="tab-panel" id="tab-sky2" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta2.png" alt="Sky 2 — Planta" loading="lazy">
+          <img src="assets/images/planta2.webp" alt="Sky 2 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <img src="assets/images/logo-sky2.png" alt="Sky 2" class="planta-logo">
@@ -1688,7 +1688,7 @@
     <div class="tab-panel" id="tab-sky3" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta3.png" alt="Sky 3 — Planta" loading="lazy">
+          <img src="assets/images/planta3.webp" alt="Sky 3 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <img src="assets/images/logo-sky3.png" alt="Sky 3" class="planta-logo">
@@ -1709,7 +1709,7 @@
     <div class="tab-panel" id="tab-sky4" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta4.png" alt="Sky 4 — Planta" loading="lazy">
+          <img src="assets/images/planta4.webp" alt="Sky 4 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <img src="assets/images/logo-sky4.png" alt="Sky 4" class="planta-logo">
@@ -1730,7 +1730,7 @@
     <div class="tab-panel" id="tab-sky5" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta5.png" alt="Sky 5 — Planta" loading="lazy">
+          <img src="assets/images/planta5.webp" alt="Sky 5 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <img src="assets/images/logo-sky5.png" alt="Sky 5" class="planta-logo">
@@ -1751,7 +1751,7 @@
     <div class="tab-panel" id="tab-sky603" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta603.png" alt="Sky 603 — Planta" loading="lazy">
+          <img src="assets/images/planta603.webp" alt="Sky 603 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <img src="assets/images/logo-sky603.png" alt="Sky 603" class="planta-logo">
@@ -1772,7 +1772,7 @@
     <div class="tab-panel" id="tab-sky604" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta604.png" alt="Sky 604 — Planta" loading="lazy">
+          <img src="assets/images/planta604.webp" alt="Sky 604 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <img src="assets/images/logo-sky604.png" alt="Sky 604" class="planta-logo">
@@ -1793,7 +1793,7 @@
     <div class="tab-panel" id="tab-sky605" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta605.png" alt="Sky 605 — Planta" loading="lazy">
+          <img src="assets/images/planta605.webp" alt="Sky 605 — Planta" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <img src="assets/images/logo-sky605.png" alt="Sky 605" class="planta-logo">
@@ -1814,7 +1814,7 @@
     <div class="tab-panel" id="tab-lazer" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/skygardenplantas.png" alt="Pavimento Lazer — Skyview" loading="lazy">
+          <img src="assets/images/skygardenplantas.webp" alt="Pavimento Lazer — Skyview" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <h3 class="planta-desc__title">Pavimento <em>Lazer</em></h3>
@@ -1835,7 +1835,7 @@
     <div class="tab-panel" id="tab-terreo" role="tabpanel">
       <div class="planta-layout">
         <div class="planta-img reveal-img">
-          <img src="assets/images/planta-terreo.png" alt="Pavimento Térreo — Skyview" loading="lazy">
+          <img src="assets/images/planta-terreo.webp" alt="Pavimento Térreo — Skyview" loading="lazy">
         </div>
         <div class="planta-desc reveal d2">
           <h3 class="planta-desc__title">Pavimento <em>Térreo</em></h3>
