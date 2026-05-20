@@ -147,12 +147,16 @@
       align-items: center;
       justify-content: space-between;
       gap: var(--sp-lg);
+      position: relative;
     }
     .nav__logo img { height: 32px; width: auto; filter: brightness(0) invert(1); opacity: 0.9; }
     .nav__links {
       display: flex;
       gap: clamp(20px, 3vw, 40px);
       list-style: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
     .nav__links a {
       font-size: 12px;
