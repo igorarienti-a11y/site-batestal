@@ -152,16 +152,17 @@
     .nav__logo img { height: 32px; width: auto; filter: brightness(0) invert(1); opacity: 0.9; }
     .nav__links {
       display: flex;
-      gap: clamp(20px, 3vw, 40px);
+      gap: clamp(16px, 2.5vw, 36px);
       list-style: none;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+      white-space: nowrap;
     }
     .nav__links a {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 400;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text-muted);
       position: relative;
@@ -180,13 +181,13 @@
     .nav__links a:hover { color: var(--text); }
     .nav__links a:hover::after { transform: scaleX(1); }
     .nav__cta {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--bg);
       background: var(--gold);
-      padding: 10px 24px;
+      padding: 9px 18px;
       flex-shrink: 0;
       transition: opacity 0.2s, transform 0.2s;
     }
@@ -1237,6 +1238,117 @@
     .footer__copy { font-size: 12px; color: var(--text-dim); }
     .footer__credit { font-size: 12px; color: var(--text-dim); }
     .footer__credit strong { font-weight: 400; color: var(--text-muted); }
+    .footer__email { font-size: 12px; color: var(--text-muted); }
+    .footer__email a { color: var(--gold); text-decoration: none; }
+    .footer__email a:hover { opacity: 0.8; }
+
+    /* ─── WA Popup ─── */
+    .wa-popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-md);
+    }
+    .wa-popup-overlay.open { display: flex; }
+    .wa-popup {
+      background: var(--bg-2);
+      border: 1px solid var(--gold-border);
+      width: 100%;
+      max-width: 460px;
+      padding: var(--sp-xl) var(--sp-lg);
+      position: relative;
+    }
+    .wa-popup__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+    .wa-popup__close:hover { color: var(--text); }
+    .wa-popup__label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--sp-sm);
+    }
+    .wa-popup__title {
+      font-size: clamp(20px, 4vw, 26px);
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: var(--sp-sm);
+    }
+    .wa-popup__sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: var(--sp-lg);
+    }
+    .wa-popup .fgroup {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-xs);
+      margin-bottom: var(--sp-md);
+    }
+    .wa-popup .fgroup label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .wa-popup .fgroup input {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 300;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .wa-popup .fgroup input:focus { border-color: var(--gold-border); }
+    .wa-popup .fgroup input::placeholder { color: var(--text-muted); }
+    .wa-popup__btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 16px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-top: var(--sp-sm);
+    }
+    .wa-popup__btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .wa-popup__btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .wa-popup__success {
+      display: none;
+      text-align: center;
+      padding: var(--sp-lg) 0;
+    }
+    .wa-popup__success.show { display: block; }
+    .wa-popup__success p { color: var(--text-muted); font-size: 14px; margin-top: var(--sp-sm); }
 
     /* ═══════════════════════════════════════
        RESPONSIVE
@@ -1417,6 +1529,7 @@
       <ul class="nav__links">
         <li><a href="#sobre">O Empreendimento</a></li>
         <li><a href="#areas">Áreas</a></li>
+        <li><button class="nav__cta" id="navWaBtn" aria-label="Falar no WhatsApp">Entre em Contato</button></li>
         <li><a href="#plantas">Plantas</a></li>
         <li><a href="#batestal">A Construtora</a></li>
       </ul>
@@ -1433,7 +1546,32 @@
   <a href="#areas" class="nav__mobile-link">Áreas de Lazer</a>
   <a href="#plantas" class="nav__mobile-link">Plantas</a>
   <a href="#batestal" class="nav__mobile-link">A Construtora</a>
+  <button class="nav__mobile-link" id="mobileWaBtn" style="background:var(--gold);color:var(--bg);font-weight:600;padding:14px 24px;margin-top:8px;border:none;cursor:pointer;font-family:inherit;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;">WhatsApp</button>
+</div>
 
+<!-- WA Popup -->
+<div class="wa-popup-overlay" id="waPopupOverlay" role="dialog" aria-modal="true" aria-labelledby="waPopupTitle">
+  <div class="wa-popup">
+    <button class="wa-popup__close" id="waPopupClose" aria-label="Fechar">×</button>
+    <p class="wa-popup__label">Atendimento exclusivo</p>
+    <h2 class="wa-popup__title" id="waPopupTitle">Fale com um especialista</h2>
+    <p class="wa-popup__sub">Preencha seus dados e te direcionamos para o WhatsApp.</p>
+    <form id="waLeadForm" novalidate>
+      <div class="fgroup">
+        <label for="waNome">Nome completo</label>
+        <input type="text" id="waNome" name="nome" placeholder="Seu nome" autocomplete="name" required>
+      </div>
+      <div class="fgroup">
+        <label for="waEmail">E-mail</label>
+        <input type="email" id="waEmail" name="email" placeholder="seu@email.com" autocomplete="email" required>
+      </div>
+      <button class="wa-popup__btn" id="waSubmitBtn" type="submit">Continuar para o WhatsApp</button>
+    </form>
+    <div class="wa-popup__success" id="waPopupSuccess">
+      <p style="color:var(--gold);font-size:22px;">✓</p>
+      <p>Redirecionando para o WhatsApp...</p>
+    </div>
+  </div>
 </div>
 
 <!-- ════════════ HERO ════════════ -->
@@ -2040,6 +2178,7 @@
         <img src="assets/images/logo-branco.png" alt="Batestal">
       </div>
       <p class="footer__copy">© 2025 Batestal Imóveis Ltda. PROT. A0184283/F — 1° Ofício de Imóveis de Itajaí/SC</p>
+      <p class="footer__email">Contato: <a href="mailto:contato@batestal.com">contato@batestal.com</a></p>
       <p class="footer__credit">Desenvolvido por <strong>Dígitha</strong></p>
     </div>
   </div>
@@ -2426,6 +2565,98 @@
       btn.disabled = false;
       setTimeout(() => { btn.textContent = 'Agendar Apresentação Exclusiva'; btn.style.background = ''; }, 3000);
     }
+  });
+
+  // ─── WA Popup ───
+  const waOverlay  = document.getElementById('waPopupOverlay');
+  const waForm     = document.getElementById('waLeadForm');
+  const waSubmit   = document.getElementById('waSubmitBtn');
+  const waSuccess  = document.getElementById('waPopupSuccess');
+  const WA_NUMBER  = '5547999800897';
+  const WA_URL     = `https://wa.me/${WA_NUMBER}`;
+
+  function openWaPopup() {
+    waOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('waNome').focus();
+  }
+  function closeWaPopup() {
+    waOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    waForm.style.display = '';
+    waSuccess.classList.remove('show');
+    waForm.reset();
+    waSubmit.textContent = 'Continuar para o WhatsApp';
+    waSubmit.disabled = false;
+  }
+
+  document.getElementById('navWaBtn').addEventListener('click', openWaPopup);
+  document.getElementById('mobileWaBtn').addEventListener('click', () => { toggleMenu(false); openWaPopup(); });
+  document.getElementById('waPopupClose').addEventListener('click', closeWaPopup);
+  waOverlay.addEventListener('click', e => { if (e.target === waOverlay) closeWaPopup(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && waOverlay.classList.contains('open')) closeWaPopup(); });
+
+  waForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const nome  = document.getElementById('waNome').value.trim();
+    const mail  = document.getElementById('waEmail').value.trim();
+
+    if (!nome || !mail.includes('@')) {
+      waSubmit.textContent = 'Preencha todos os campos';
+      setTimeout(() => { waSubmit.textContent = 'Continuar para o WhatsApp'; }, 2500);
+      return;
+    }
+
+    waSubmit.textContent = 'Enviando...';
+    waSubmit.disabled = true;
+
+    const { first, last } = splitName(nome);
+    const eventId = generateEventId();
+    const clickIds = getClickIds();
+    const fbclid   = clickIds.fbclid || '';
+    let fbc        = getCookie('_fbc');
+    if (!fbc && fbclid) fbc = `fb.1.${Date.now()}.${fbclid}`;
+
+    const payload = {
+      name:       nome,
+      email:      mail,
+      phone:      '',
+      interesse:  'whatsapp',
+      event_id:   eventId,
+      first_name: first,
+      last_name:  last,
+      fbp:        getCookie('_fbp'),
+      fbc,
+      fbclid,
+      gclid:      clickIds.gclid   || '',
+      gbraid:     clickIds.gbraid  || '',
+      wbraid:     clickIds.wbraid  || '',
+      ttclid:     clickIds.ttclid  || '',
+      msclkid:    clickIds.msclkid || '',
+      utms:       getUtms(),
+      page_url:   window.location.href,
+      referrer:   document.referrer,
+      user_agent: navigator.userAgent,
+      language:   navigator.language,
+      screen:     `${window.screen.width}x${window.screen.height}`,
+      timezone:   Intl.DateTimeFormat().resolvedOptions().timeZone,
+      source:     'whatsapp_cta',
+    };
+
+    try {
+      await fetch('/api/leads', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+    } catch (_) {}
+
+    waForm.style.display = 'none';
+    waSuccess.classList.add('show');
+    setTimeout(() => {
+      closeWaPopup();
+      window.open(WA_URL, '_blank', 'noopener');
+    }, 1200);
   });
 </script>
 </body>
