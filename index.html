@@ -1565,6 +1565,10 @@
         <label for="waEmail">E-mail</label>
         <input type="email" id="waEmail" name="email" placeholder="seu@email.com" autocomplete="email" required>
       </div>
+      <div class="fgroup">
+        <label for="waTelefone">Telefone</label>
+        <input type="tel" id="waTelefone" name="telefone" placeholder="(47) 99999-9999" autocomplete="tel" required>
+      </div>
       <button class="wa-popup__btn" id="waSubmitBtn" type="submit">Continuar para o WhatsApp</button>
     </form>
     <div class="wa-popup__success" id="waPopupSuccess">
@@ -2590,6 +2594,14 @@
     waSubmit.disabled = false;
   }
 
+  const waTelInput = document.getElementById('waTelefone');
+  waTelInput.addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 7)      v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+    else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    e.target.value = v;
+  });
+
   document.getElementById('navWaBtn').addEventListener('click', openWaPopup);
   document.getElementById('mobileWaBtn').addEventListener('click', () => { toggleMenu(false); openWaPopup(); });
   document.getElementById('waPopupClose').addEventListener('click', closeWaPopup);
@@ -2600,8 +2612,9 @@
     e.preventDefault();
     const nome  = document.getElementById('waNome').value.trim();
     const mail  = document.getElementById('waEmail').value.trim();
+    const tel   = document.getElementById('waTelefone').value.replace(/\D/g, '');
 
-    if (!nome || !mail.includes('@')) {
+    if (!nome || !mail.includes('@') || tel.length < 10) {
       waSubmit.textContent = 'Preencha todos os campos';
       setTimeout(() => { waSubmit.textContent = 'Continuar para o WhatsApp'; }, 2500);
       return;
@@ -2620,7 +2633,7 @@
     const payload = {
       name:       nome,
       email:      mail,
-      phone:      '',
+      phone:      tel,
       interesse:  'whatsapp',
       event_id:   eventId,
       first_name: first,
