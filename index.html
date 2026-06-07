@@ -2685,8 +2685,7 @@
     waForm.style.display = 'none';
     waSuccess.classList.add('show');
     setTimeout(() => {
-      closeWaPopup();
-      window.open(WA_URL, '_blank', 'noopener');
+      window.location.href = WA_URL;
     }, 1200);
   });
 </script>
