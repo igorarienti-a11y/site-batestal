@@ -1,7 +1,8 @@
 export const config = { runtime: 'edge' };
 
 const SPREADSHEET_ID  = process.env.SPREADSHEET_ID;
-const SHEET_NAME      = 'Leads';
+const SHEET_NAME      = 'Leads Skyview';
+const SHEET_RANGE     = (a1) => encodeURIComponent(`'${SHEET_NAME}'!${a1}`);  // aspas + encode: nome tem espaço
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean);
 
 function getCorsHeaders(origin) {
@@ -170,26 +171,18 @@ export default async function handler(req) {
       throw new Error(`TOKEN_FAIL: ${tokenErr.message}`);
     }
 
-    const headersUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!1:1`;
+    const headersUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_RANGE('1:1')}`;
     const headersRes = await fetch(headersUrl, {
       headers: { 'Authorization': `Bearer ${token}` },
     });
-    if (!headersRes.ok) {
-      let tabs = '';
-      try {
-        const meta = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}?fields=sheets.properties.title`, { headers: { 'Authorization': `Bearer ${token}` } });
-        const mj = await meta.json();
-        tabs = (mj.sheets || []).map(s => s.properties.title).join(' || ');
-      } catch (_) {}
-      throw new Error(`HEADERS_FAIL(${headersRes.status}) tabs=[${tabs}]`);
-    }
+    if (!headersRes.ok) throw new Error(`HEADERS_FAIL(${headersRes.status})`);
 
     const headersData = await headersRes.json();
     const headers = (headersData.values?.[0] || []).map(h => h.toLowerCase().trim());
 
     const row = headers.map(h => fieldMap[h] ?? '');
 
-    const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!A:A:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
+    const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_RANGE('A:A')}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
     const res = await fetch(appendUrl, {
       method:  'POST',
       headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
