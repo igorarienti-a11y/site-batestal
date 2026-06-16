@@ -2700,5 +2700,53 @@
     }, 1200);
   });
 </script>
+
+<!-- ─── Typebot — Pré-Atendente Skyview (bubble + tracking) ─── -->
+<script type="module">
+  import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js';
+
+  // Helpers próprios (consistentes com os do formulário: mesmas chaves de sessionStorage)
+  const tbCookie = n => { const m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? decodeURIComponent(m[2]) : ''; };
+  const tbStore = (key, urlKeys) => {
+    const p = new URLSearchParams(location.search), cur = {};
+    urlKeys.forEach(k => { if (p.get(k)) cur[k] = p.get(k); });
+    if (Object.keys(cur).length) sessionStorage.setItem(key, JSON.stringify(cur));
+    try { return JSON.parse(sessionStorage.getItem(key)) || {}; } catch (_) { return {}; }
+  };
+
+  const utms   = tbStore('_utms',     ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']);
+  const clk    = tbStore('_clickids', ['fbclid','gclid','ttclid','msclkid','gbraid','wbraid']);
+  const fbclid = clk.fbclid || '';
+  const fbc    = tbCookie('_fbc') || (fbclid ? `fb.1.${Date.now()}.${fbclid}` : '');
+
+  Typebot.initBubble({
+    typebot: "batestal-skyview-preatendente",
+    theme: {
+      button:     { backgroundColor: "#29a71a", customIconSrc: "https://cdn-icons-png.flaticon.com/512/3670/3670051.png", size: "large" },
+      chatWindow: { backgroundColor: "#F8F8F8" }
+    },
+    prefilledVariables: {
+      utm_source:   utms.utm_source   || 'Typebot',
+      utm_medium:   utms.utm_medium   || '',
+      utm_campaign: utms.utm_campaign || '',
+      utm_term:     utms.utm_term     || '',
+      utm_content:  utms.utm_content  || '',
+      FBCLID:  fbclid,
+      GCLID:   clk.gclid   || '',
+      GBRAID:  clk.gbraid  || '',
+      WBRAID:  clk.wbraid  || '',
+      TTCLID:  clk.ttclid  || '',
+      MSCLKID: clk.msclkid || '',
+      FBP: tbCookie('_fbp'),
+      FBC: fbc,
+      Pagina:        location.href,
+      Referencia:    document.referrer,
+      Idioma:        navigator.language,
+      Resolucao:     `${window.screen.width}x${window.screen.height}`,
+      "Fuso Horario": Intl.DateTimeFormat().resolvedOptions().timeZone,
+      Navegador:     navigator.userAgent
+    }
+  });
+</script>
 </body>
 </html>
