@@ -200,7 +200,7 @@ export default async function handler(req) {
 
   } catch (err) {
     console.error('[leads] internal error:', err);
-    return new Response(JSON.stringify({ success: false, error: 'Internal error' }), {
+    return new Response(JSON.stringify({ success: false, error: 'Internal error', detail: String(err && err.message || err) }), {
       status:  500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
