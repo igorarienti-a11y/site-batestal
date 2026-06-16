@@ -174,7 +174,15 @@ export default async function handler(req) {
     const headersRes = await fetch(headersUrl, {
       headers: { 'Authorization': `Bearer ${token}` },
     });
-    if (!headersRes.ok) throw new Error(`HEADERS_FAIL(${headersRes.status})`);
+    if (!headersRes.ok) {
+      let tabs = '';
+      try {
+        const meta = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}?fields=sheets.properties.title`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const mj = await meta.json();
+        tabs = (mj.sheets || []).map(s => s.properties.title).join(' || ');
+      } catch (_) {}
+      throw new Error(`HEADERS_FAIL(${headersRes.status}) tabs=[${tabs}]`);
+    }
 
     const headersData = await headersRes.json();
     const headers = (headersData.values?.[0] || []).map(h => h.toLowerCase().trim());
