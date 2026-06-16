@@ -1,0 +1,29 @@
+name: Health — /api/leads
+
+# Pinga o health-check do endpoint de leads a cada 30 min.
+# Se falhar (não consegue ler a planilha), o job quebra e o GitHub
+# notifica o dono do repo por e-mail. Pode rodar manualmente também.
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /api/leads?health=1
+        run: |
+          URL="https://www.skyview100.com.br/api/leads?health=1"
+          echo "Checando $URL"
+          RESP=$(curl -s -m 20 -w $'\n%{http_code}' "$URL")
+          CODE=$(printf '%s' "$RESP" | tail -n1)
+          BODY=$(printf '%s' "$RESP" | sed '$d')
+          echo "HTTP $CODE"
+          echo "$BODY"
+          if [ "$CODE" != "200" ] || ! printf '%s' "$BODY" | grep -q '"ok":true'; then
+            echo "::error::Pipeline de leads da Batestal QUEBRADO — /api/leads?health=1 retornou HTTP $CODE. Leads do formulário e do typebot NAO estao sendo gravados."
+            exit 1
+          fi
+          echo "OK — endpoint saudavel, planilha legivel."

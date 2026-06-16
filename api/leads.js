@@ -98,6 +98,22 @@ export default async function handler(req) {
   const corsHeaders = getCorsHeaders(origin);
 
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
+
+  // Health-check (read-only): valida token + leitura dos headers da aba — sem gravar linha nem disparar CAPI.
+  // GET /api/leads?health=1  -> 200 {ok:true} se consegue ler a planilha; 500 caso contrário.
+  if (req.method === 'GET' && new URL(req.url).searchParams.get('health') === '1') {
+    try {
+      const token = await getAccessToken(process.env.GOOGLE_CREDENTIALS);
+      const hr = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_RANGE('1:1')}`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (!hr.ok) return new Response(JSON.stringify({ ok: false, stage: 'headers', status: hr.status, sheet: SHEET_NAME }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+      const hd = await hr.json();
+      const columns = (hd.values?.[0] || []).length;
+      return new Response(JSON.stringify({ ok: true, sheet: SHEET_NAME, columns }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    } catch (e) {
+      return new Response(JSON.stringify({ ok: false, stage: 'token', error: String(e && e.message || e) }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    }
+  }
+
   if (req.method !== 'POST')   return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });
 
   try {
