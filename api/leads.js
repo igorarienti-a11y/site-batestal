@@ -15,6 +15,31 @@ function getCorsHeaders(origin) {
   };
 }
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// Reforço contra blip transitório do Google (5xx / 429 / timeout): tenta de novo antes de desistir.
+// Cada tentativa tem timeout próprio (AbortSignal) pra não gastar os 20s do monitor numa chamada pendurada.
+// GET/idempotente -> retryOnThrow:true. POST/append -> retryOnThrow:false (evita linha duplicada se a 1ª já gravou).
+async function fetchRetry(url, options = {}, { attempts = 2, baseDelay = 500, timeoutMs = 6000, retryOnThrow = true } = {}) {
+  let lastErr;
+  for (let i = 0; i < attempts; i++) {
+    const isLast = i === attempts - 1;
+    try {
+      const res = await fetch(url, { ...options, signal: AbortSignal.timeout(timeoutMs) });
+      if (!res.ok && (res.status >= 500 || res.status === 429) && !isLast) {
+        await sleep(baseDelay * (i + 1));
+        continue;
+      }
+      return res;
+    } catch (e) {
+      lastErr = e;
+      if (!retryOnThrow || isLast) throw e;
+      await sleep(baseDelay * (i + 1));
+    }
+  }
+  throw lastErr;
+}
+
 async function getAccessToken(serviceAccountKey) {
   const key = JSON.parse(serviceAccountKey);
 
@@ -57,7 +82,7 @@ async function getAccessToken(serviceAccountKey) {
 
   const jwt = `${signatureInput}.${signatureBase64}`;
 
-  const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+  const tokenResponse = await fetchRetry('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
@@ -104,7 +129,7 @@ export default async function handler(req) {
   if (req.method === 'GET' && new URL(req.url).searchParams.get('health') === '1') {
     try {
       const token = await getAccessToken(process.env.GOOGLE_CREDENTIALS);
-      const hr = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_RANGE('1:1')}`, { headers: { 'Authorization': `Bearer ${token}` } });
+      const hr = await fetchRetry(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_RANGE('1:1')}`, { headers: { 'Authorization': `Bearer ${token}` } });
       if (!hr.ok) return new Response(JSON.stringify({ ok: false, stage: 'headers', status: hr.status, sheet: SHEET_NAME }), { status: 500, headers: { 'Content-Type': 'application/json' } });
       const hd = await hr.json();
       const columns = (hd.values?.[0] || []).length;
@@ -188,7 +213,7 @@ export default async function handler(req) {
     }
 
     const headersUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_RANGE('1:1')}`;
-    const headersRes = await fetch(headersUrl, {
+    const headersRes = await fetchRetry(headersUrl, {
       headers: { 'Authorization': `Bearer ${token}` },
     });
     if (!headersRes.ok) throw new Error(`HEADERS_FAIL(${headersRes.status})`);
@@ -199,11 +224,11 @@ export default async function handler(req) {
     const row = headers.map(h => fieldMap[h] ?? '');
 
     const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_RANGE('A:A')}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
-    const res = await fetch(appendUrl, {
+    const res = await fetchRetry(appendUrl, {
       method:  'POST',
       headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
       body:    JSON.stringify({ values: [row] }),
-    });
+    }, { retryOnThrow: false });
 
     if (!res.ok) {
       const err = await res.json();

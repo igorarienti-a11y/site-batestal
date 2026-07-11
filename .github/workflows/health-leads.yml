@@ -13,17 +13,28 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping /api/leads?health=1
+      - name: Ping /api/leads?health=1 (3 tentativas antes de alarmar)
         run: |
           URL="https://www.skyview100.com.br/api/leads?health=1"
           echo "Checando $URL"
-          RESP=$(curl -s -m 20 -w $'\n%{http_code}' "$URL")
-          CODE=$(printf '%s' "$RESP" | tail -n1)
-          BODY=$(printf '%s' "$RESP" | sed '$d')
-          echo "HTTP $CODE"
-          echo "$BODY"
-          if [ "$CODE" != "200" ] || ! printf '%s' "$BODY" | grep -q '"ok":true'; then
-            echo "::error::Pipeline de leads da Batestal QUEBRADO — /api/leads?health=1 retornou HTTP $CODE. Leads do formulário e do typebot NAO estao sendo gravados."
+          ok=0
+          for attempt in 1 2 3; do
+            RESP=$(curl -s -m 20 -w $'\n%{http_code}' "$URL")
+            CODE=$(printf '%s' "$RESP" | tail -n1)
+            BODY=$(printf '%s' "$RESP" | sed '$d')
+            echo "tentativa $attempt -> HTTP $CODE"
+            echo "$BODY"
+            if [ "$CODE" = "200" ] && printf '%s' "$BODY" | grep -q '"ok":true'; then
+              ok=1
+              break
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "falhou — esperando 15s e tentando de novo..."
+              sleep 15
+            fi
+          done
+          if [ "$ok" != "1" ]; then
+            echo "::error::Pipeline de leads da Batestal QUEBRADO — /api/leads?health=1 falhou 3x seguidas (ultimo HTTP $CODE). Leads do formulario e do typebot podem NAO estar sendo gravados."
             exit 1
           fi
           echo "OK — endpoint saudavel, planilha legivel."
