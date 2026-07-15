@@ -594,6 +594,7 @@
       aspect-ratio: 16 / 9;
       object-fit: cover;
     }
+    .video-player-wrap + .video-sec__head { margin-top: var(--sp-3xl); }
 
     /* ═══════════════════════════════════════
        ÁREAS DE LAZER
@@ -2106,6 +2107,23 @@
 <!-- ════════════ VIDEO ════════════ -->
 <section class="video-sec" id="video">
   <div class="container">
+    <div class="video-sec__head">
+      <h2 class="video-sec__title reveal d1">
+        Conheça o <em>Skyview</em>
+      </h2>
+    </div>
+    <div class="video-player-wrap reveal-img d2">
+      <video
+        controls
+        preload="none"
+        poster="assets/images/thumb-video-skyview.jpg"
+        aria-label="Vídeo do empreendimento Skyview 100"
+      >
+        <source src="assets/video/skyview-final.mp4" type="video/mp4">
+
+        Seu navegador não suporta a reprodução de vídeo.
+      </video>
+    </div>
     <div class="video-sec__head">
       <h2 class="video-sec__title reveal d1">
         Conheça a <em>Batestal</em>
